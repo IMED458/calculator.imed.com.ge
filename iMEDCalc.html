@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Georgian:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         /* CSS Variables for Dark and Light Themes */
         :root {
@@ -198,6 +199,425 @@
         .chip { background: rgba(34,211,238,.12); border-color: rgba(34,211,238,.25); color: #a5f3fc; }
         [data-theme="light"] .chip { background: rgba(6, 182, 212, .1); border-color: rgba(6, 182, 212, .25); color: #0891b2; }
 
+        .iv-suite {
+            --iv-bg: #0d1117;
+            --iv-surface: #161b22;
+            --iv-card: #1c2230;
+            --iv-border: #2d3748;
+            --iv-accent: #00d4aa;
+            --iv-accent2: #0099ff;
+            --iv-accent3: #ff6b35;
+            --iv-text: #e6edf3;
+            --iv-muted: #8b949e;
+            --iv-success: #3fb950;
+            --iv-warn: #f0883e;
+            --iv-error: #f85149;
+            --iv-mono: 'IBM Plex Mono', monospace;
+            --iv-sans: 'IBM Plex Sans Georgian', sans-serif;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: calc(var(--radius-2xl) + .25rem);
+            border: 1px solid rgba(45, 55, 72, 0.9);
+            background:
+                radial-gradient(50rem 24rem at 10% -10%, rgba(0, 212, 170, 0.08), transparent 60%),
+                radial-gradient(40rem 20rem at 100% 0%, rgba(0, 153, 255, 0.09), transparent 55%),
+                var(--iv-bg);
+            color: var(--iv-text);
+            font-family: var(--iv-sans);
+            box-shadow: var(--shadow-3);
+        }
+
+        .iv-header {
+            text-align: center;
+            padding: 1rem 0 2.25rem;
+            position: relative;
+        }
+
+        .iv-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--iv-accent), transparent);
+            opacity: 0.35;
+        }
+
+        .iv-badge {
+            display: inline-block;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            color: var(--iv-accent);
+            font-family: var(--iv-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 2px;
+            margin-bottom: 16px;
+        }
+
+        .iv-header h2 {
+            margin: 0 0 8px;
+            font-size: clamp(22px, 4vw, 32px);
+            font-weight: 800;
+            color: var(--iv-text);
+            letter-spacing: -0.5px;
+        }
+
+        .iv-subtitle {
+            color: var(--iv-muted);
+            font-size: 14px;
+            font-family: var(--iv-mono);
+            margin: 0;
+        }
+
+        .iv-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--iv-surface);
+            border: 1px solid var(--iv-border);
+            border-radius: 8px;
+            padding: 4px;
+            max-width: 700px;
+            margin: 0 auto 32px;
+            flex-wrap: wrap;
+        }
+
+        .iv-tab {
+            flex: 1;
+            padding: 10px 8px;
+            background: transparent;
+            border: none;
+            border-radius: 5px;
+            color: var(--iv-muted);
+            font-family: var(--iv-sans);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            white-space: nowrap;
+            box-shadow: none;
+        }
+
+        .iv-tab:hover {
+            color: var(--iv-text);
+            background: rgba(255, 255, 255, 0.04);
+            transform: none;
+            filter: none;
+        }
+
+        .iv-tab.active {
+            background: var(--iv-card);
+            color: var(--iv-accent);
+            border: 1px solid rgba(0, 212, 170, 0.25);
+        }
+
+        .iv-panels {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .iv-panel {
+            display: none;
+        }
+
+        .iv-panel.active {
+            display: block;
+        }
+
+        .iv-card {
+            background: var(--iv-card);
+            border: 1px solid var(--iv-border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 16px;
+            box-shadow: none;
+        }
+
+        .iv-card-title {
+            font-size: 13px;
+            font-family: var(--iv-mono);
+            color: var(--iv-accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .iv-card-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--iv-accent);
+            border-radius: 50%;
+        }
+
+        .iv-field {
+            margin-bottom: 16px;
+        }
+
+        .iv-suite label {
+            display: block;
+            font-size: 13px;
+            color: var(--iv-muted);
+            margin-bottom: 6px;
+            font-weight: 400;
+        }
+
+        .iv-suite label strong {
+            color: var(--iv-text);
+            font-weight: 600;
+        }
+
+        .iv-input-row {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        .iv-suite input[type="number"] {
+            flex: 1;
+            background: var(--iv-surface);
+            border: 1px solid var(--iv-border);
+            border-radius: 6px;
+            color: var(--iv-text);
+            font-family: var(--iv-mono);
+            font-size: 18px;
+            padding: 12px 14px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+        }
+
+        .iv-suite input[type="number"]:focus,
+        .iv-suite select:focus {
+            border-color: var(--iv-accent);
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+        }
+
+        .iv-suite input[type="number"]::placeholder {
+            color: #4b5563;
+        }
+
+        .iv-unit-tag {
+            background: var(--iv-surface);
+            border: 1px solid var(--iv-border);
+            border-radius: 6px;
+            padding: 12px 14px;
+            color: var(--iv-muted);
+            font-family: var(--iv-mono);
+            font-size: 13px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .iv-suite select {
+            flex: 1;
+            background: var(--iv-surface);
+            border: 1px solid var(--iv-border);
+            border-radius: 6px;
+            color: var(--iv-text);
+            font-family: var(--iv-sans);
+            font-size: 14px;
+            padding: 12px 14px;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            width: 100%;
+        }
+
+        .iv-divider {
+            height: 1px;
+            background: var(--iv-border);
+            margin: 20px 0;
+        }
+
+        .iv-calc-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--iv-accent);
+            color: #0d1117;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--iv-sans);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+            box-shadow: none;
+        }
+
+        .iv-calc-btn:hover {
+            background: #00f0c0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
+            filter: none;
+        }
+
+        .iv-calc-btn:active {
+            transform: translateY(0);
+        }
+
+        .iv-result-box {
+            background: var(--iv-surface);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 10px;
+            padding: 24px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .iv-result-box.show {
+            display: block;
+        }
+
+        .iv-result-box.error-box {
+            border-color: rgba(248, 81, 73, 0.4);
+            background: rgba(248, 81, 73, 0.05);
+        }
+
+        .iv-result-label {
+            font-size: 12px;
+            color: var(--iv-muted);
+            font-family: var(--iv-mono);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .iv-result-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--iv-accent);
+            font-family: var(--iv-mono);
+            line-height: 1;
+        }
+
+        .iv-result-unit {
+            font-size: 16px;
+            color: var(--iv-muted);
+            font-family: var(--iv-mono);
+            margin-top: 2px;
+        }
+
+        .iv-result-steps {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--iv-border);
+        }
+
+        .iv-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: var(--iv-muted);
+            font-family: var(--iv-mono);
+        }
+
+        .iv-step-num {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--iv-accent);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .iv-step-text {
+            color: var(--iv-text);
+            line-height: 1.5;
+        }
+
+        .iv-step-text span {
+            color: var(--iv-accent);
+        }
+
+        .iv-formula-box {
+            background: rgba(0, 153, 255, 0.06);
+            border: 1px solid rgba(0, 153, 255, 0.2);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            font-family: var(--iv-mono);
+            font-size: 13px;
+            color: var(--iv-accent2);
+            line-height: 1.6;
+        }
+
+        .iv-error-msg {
+            color: var(--iv-error);
+            font-size: 14px;
+            font-family: var(--iv-mono);
+        }
+
+        .iv-info-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .iv-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--iv-border);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: var(--iv-muted);
+            font-family: var(--iv-mono);
+        }
+
+        @media (max-width: 760px) {
+            .iv-suite {
+                padding: 1rem;
+            }
+
+            .iv-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .iv-tab {
+                font-size: 12px;
+                padding: 8px 4px;
+            }
+
+            .iv-result-value {
+                font-size: 32px;
+            }
+
+            .iv-suite .iv-input-row {
+                flex-wrap: wrap;
+            }
+
+            .iv-suite .iv-input-row > * {
+                min-width: 0;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -282,6 +702,173 @@
             </button>
         </header>
         <p class="disclaimer">დამხმარე ხელსაწყო. სავალდებულოა შედეგების გადამოწმება კლინიკურ პროტოკოლებთან.</p>
+        <section class="iv-suite" aria-labelledby="iv-suite-title">
+            <div class="iv-header">
+                <div class="iv-badge">nursing tool · iv infusion</div>
+                <h2 id="iv-suite-title">ინტრავენური გადასხმის კალკულატორი</h2>
+                <p class="iv-subtitle">მარტივი გამოთვლები ექთნებისთვის</p>
+            </div>
+
+            <div class="iv-tabs" role="tablist" aria-label="IV კალკულატორის კატეგორიები">
+                <button class="iv-tab active" type="button" onclick="switchIvTab(0)" aria-selected="true">💊 მკგ/კგ/წთ → პამპი</button>
+                <button class="iv-tab" type="button" onclick="switchIvTab(1)" aria-selected="false">💧 წვეთოვანი</button>
+                <button class="iv-tab" type="button" onclick="switchIvTab(2)" aria-selected="false">⚗️ სიჩქარე/დრო</button>
+            </div>
+
+            <div class="iv-panels">
+                <div class="iv-panel active" id="iv-panel-0">
+                    <div class="iv-card">
+                        <div class="iv-card-title">პამპის სიჩქარე — მლ/სთ</div>
+                        <div class="iv-formula-box">
+                            სიჩქარე (მლ/სთ) = დოზა × წონა × 60 ÷ K
+                        </div>
+
+                        <div class="iv-info-chips">
+                            <span class="iv-chip">დოპამინი</span>
+                            <span class="iv-chip">დობუტამინი</span>
+                            <span class="iv-chip">ნიტროპრუსიდი</span>
+                            <span class="iv-chip">ეპინეფრინი</span>
+                            <span class="iv-chip">კორდარონი</span>
+                        </div>
+
+                        <div class="iv-field">
+                            <label><strong>დოზა</strong> — ექიმის დანიშნულება</label>
+                            <div class="iv-input-row">
+                                <input type="number" id="p1_dose" placeholder="5" step="0.1" min="0">
+                                <select id="p1_dose_unit">
+                                    <option value="mcg">მკგ/კგ/წთ</option>
+                                    <option value="mg">მგ/კგ/წთ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="iv-field">
+                            <label><strong>პაციენტის წონა</strong></label>
+                            <div class="iv-input-row">
+                                <input type="number" id="p1_weight" placeholder="70" step="0.1" min="0">
+                                <div class="iv-unit-tag">კგ</div>
+                            </div>
+                        </div>
+
+                        <div class="iv-divider"></div>
+
+                        <div class="iv-field">
+                            <label><strong>K კოეფიციენტი</strong> — კონცენტრაცია 1 მლ-ში</label>
+                            <div class="iv-input-row">
+                                <input type="number" id="p1_K" placeholder="3200" step="0.1" min="0">
+                                <select id="p1_K_unit">
+                                    <option value="mcg">მკგ/მლ</option>
+                                    <option value="mg">მგ/მლ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="iv-calc-btn" type="button" onclick="calcIvPump()">გამოთვლა →</button>
+
+                        <div class="iv-result-box" id="p1_result" aria-live="polite">
+                            <div class="iv-result-label">პამპის სიჩქარე</div>
+                            <div class="iv-result-value" id="p1_val">—</div>
+                            <div class="iv-result-unit">მლ / სთ</div>
+                            <div id="p1_steps"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="iv-panel" id="iv-panel-1">
+                    <div class="iv-card">
+                        <div class="iv-card-title">წვეთოვანი — წვ/წთ</div>
+                        <div class="iv-formula-box">
+                            წვ/წთ = დოზა × წონა ÷ K × დროპ-ფაქტორი
+                        </div>
+
+                        <div class="iv-field">
+                            <label><strong>დოზა</strong> — ექიმის დანიშნულება</label>
+                            <div class="iv-input-row">
+                                <input type="number" id="p2_dose" placeholder="5" step="0.1" min="0">
+                                <select id="p2_dose_unit">
+                                    <option value="mcg">მკგ/კგ/წთ</option>
+                                    <option value="mg">მგ/კგ/წთ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="iv-field">
+                            <label><strong>პაციენტის წონა</strong></label>
+                            <div class="iv-input-row">
+                                <input type="number" id="p2_weight" placeholder="70" step="0.1" min="0">
+                                <div class="iv-unit-tag">კგ</div>
+                            </div>
+                        </div>
+
+                        <div class="iv-field">
+                            <label><strong>დროპ ფაქტორი</strong> — სისტემის ტიპი</label>
+                            <div class="iv-input-row">
+                                <select id="p2_drop_factor">
+                                    <option value="60">60 წვ/მლ — მიკრო</option>
+                                    <option value="20">20 წვ/მლ — სტანდარტი</option>
+                                    <option value="15">15 წვ/მლ</option>
+                                    <option value="25">25 წვ/მლ</option>
+                                    <option value="custom">სხვა...</option>
+                                </select>
+                                <input type="number" id="p2_drop_custom" placeholder="60" style="display:none; max-width:100px;" min="1">
+                                <div class="iv-unit-tag" id="p2_drop_unit_tag">წვ/მლ</div>
+                            </div>
+                        </div>
+
+                        <div class="iv-divider"></div>
+
+                        <div class="iv-field">
+                            <label><strong>K კოეფიციენტი</strong> — კონცენტრაცია 1 მლ-ში</label>
+                            <div class="iv-input-row">
+                                <input type="number" id="p2_K" placeholder="1600" step="0.1" min="0">
+                                <select id="p2_K_unit">
+                                    <option value="mcg">მკგ/მლ</option>
+                                    <option value="mg">მგ/მლ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="iv-calc-btn" type="button" onclick="calcIvDrop()">გამოთვლა →</button>
+
+                        <div class="iv-result-box" id="p2_result" aria-live="polite">
+                            <div class="iv-result-label">სიჩქარე წვეთოვანზე</div>
+                            <div class="iv-result-value" id="p2_val">—</div>
+                            <div class="iv-result-unit">წვეთი / წუთი</div>
+                            <div id="p2_steps"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="iv-panel" id="iv-panel-2">
+                    <div class="iv-card">
+                        <div class="iv-card-title">სიჩქარე · დრო · მოცულობა</div>
+
+                        <div class="iv-field">
+                            <label>რა გინდა გამოთვალო?</label>
+                            <select id="p3_mode" onchange="updateIvMode()">
+                                <option value="rate">სიჩქარე (მლ/სთ) — ვიცი მოცულობა და დრო</option>
+                                <option value="time">დრო (სთ) — ვიცი მოცულობა და სიჩქარე</option>
+                                <option value="vol">მოცულობა (მლ) — ვიცი სიჩქარე და დრო</option>
+                                <option value="drop_simple">წვ/წთ — მოცულობა + დრო + დროპ-ფაქტორი</option>
+                            </select>
+                        </div>
+
+                        <div class="iv-divider"></div>
+
+                        <div id="p3_fields"></div>
+
+                        <button class="iv-calc-btn" type="button" onclick="calcIvSimple()">გამოთვლა →</button>
+
+                        <div class="iv-result-box" id="p3_result" aria-live="polite">
+                            <div class="iv-result-label" id="p3_rlabel">შედეგი</div>
+                            <div class="iv-result-value" id="p3_val">—</div>
+                            <div class="iv-result-unit" id="p3_runit"></div>
+                            <div id="p3_steps"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <div class="grid" id="grid">
             <section class="card" id="bicarb-card">
                 <h2>სოდა ბუფერი — გადასხმის გამოთვლა <span class="tag">ფორმულა</span></h2>
@@ -375,6 +962,252 @@
     </div>
 
     <script>
+        function switchIvTab(i) {
+            document.querySelectorAll('.iv-tab').forEach((tab, index) => {
+                const isActive = i === index;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+            document.querySelectorAll('.iv-panel').forEach((panel, index) => {
+                panel.classList.toggle('active', i === index);
+            });
+        }
+
+        function toggleIvDropFactor() {
+            const dropFactor = document.getElementById('p2_drop_factor');
+            const custom = document.getElementById('p2_drop_custom');
+            const tag = document.getElementById('p2_drop_unit_tag');
+
+            if (!dropFactor || !custom || !tag) return;
+
+            if (dropFactor.value === 'custom') {
+                custom.style.display = 'block';
+                tag.style.display = 'flex';
+            } else {
+                custom.style.display = 'none';
+            }
+        }
+
+        function toIvMcg(val, unit) {
+            if (unit === 'mcg') return val;
+            if (unit === 'mg') return val * 1000;
+            if (unit === 'g') return val * 1000000;
+            return val;
+        }
+
+        function calcIvK(drugAmt, drugUnit, vol) {
+            const mcgTotal = toIvMcg(drugAmt, drugUnit);
+            return mcgTotal / vol;
+        }
+
+        function calcIvPump() {
+            const dose = parseFloat(document.getElementById('p1_dose').value);
+            const doseUnit = document.getElementById('p1_dose_unit').value;
+            const weight = parseFloat(document.getElementById('p1_weight').value);
+            const Kraw = parseFloat(document.getElementById('p1_K').value);
+            const KUnit = document.getElementById('p1_K_unit').value;
+
+            const box = document.getElementById('p1_result');
+            box.className = 'iv-result-box show';
+
+            if ([dose, weight, Kraw].some(isNaN) || Kraw === 0) {
+                box.className = 'iv-result-box show error-box';
+                document.getElementById('p1_val').textContent = '!';
+                document.getElementById('p1_steps').innerHTML = '<span class="iv-error-msg">შეავსეთ ყველა ველი</span>';
+                return;
+            }
+
+            const doseMcg = doseUnit === 'mg' ? dose * 1000 : dose;
+            const K = KUnit === 'mg' ? Kraw * 1000 : Kraw;
+            const rateMlHr = (doseMcg * weight * 60) / K;
+
+            document.getElementById('p1_val').textContent = rateMlHr.toFixed(2);
+            document.getElementById('p1_steps').innerHTML = `
+                <div class="iv-result-steps">
+                    <div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>
+                    <div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">K = <span>${K.toFixed(2)} მკგ/მლ</span></div></div>
+                    <div class="iv-step"><div class="iv-step-num">2</div><div class="iv-step-text">სიჩქარე = ${doseMcg} × ${weight}კგ × 60 ÷ ${K.toFixed(2)} = <span>${rateMlHr.toFixed(2)} მლ/სთ</span></div></div>
+                </div>`;
+        }
+
+        function calcIvDrop() {
+            const dose = parseFloat(document.getElementById('p2_dose').value);
+            const doseUnit = document.getElementById('p2_dose_unit').value;
+            const weight = parseFloat(document.getElementById('p2_weight').value);
+            const dfSel = document.getElementById('p2_drop_factor').value;
+            const dropFactor = dfSel === 'custom'
+                ? parseFloat(document.getElementById('p2_drop_custom').value)
+                : parseFloat(dfSel);
+            const Kraw = parseFloat(document.getElementById('p2_K').value);
+            const KUnit = document.getElementById('p2_K_unit').value;
+
+            const box = document.getElementById('p2_result');
+            box.className = 'iv-result-box show';
+
+            if ([dose, weight, dropFactor, Kraw].some(isNaN) || Kraw === 0) {
+                box.className = 'iv-result-box show error-box';
+                document.getElementById('p2_val').textContent = '!';
+                document.getElementById('p2_steps').innerHTML = '<span class="iv-error-msg">შეავსეთ ყველა ველი</span>';
+                return;
+            }
+
+            const doseMcg = doseUnit === 'mg' ? dose * 1000 : dose;
+            const K = KUnit === 'mg' ? Kraw * 1000 : Kraw;
+            const mlMin = (doseMcg * weight) / K;
+            const dropsMin = mlMin * dropFactor;
+
+            document.getElementById('p2_val').textContent = Math.round(dropsMin);
+            document.getElementById('p2_steps').innerHTML = `
+                <div class="iv-result-steps">
+                    <div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>
+                    <div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">K = <span>${K.toFixed(2)} მკგ/მლ</span></div></div>
+                    <div class="iv-step"><div class="iv-step-num">2</div><div class="iv-step-text">მლ/წთ = ${doseMcg} × ${weight}კგ ÷ ${K.toFixed(2)} = <span>${mlMin.toFixed(4)} მლ/წთ</span></div></div>
+                    <div class="iv-step"><div class="iv-step-num">3</div><div class="iv-step-text">წვ/წთ = ${mlMin.toFixed(4)} × ${dropFactor} = <span>${dropsMin.toFixed(1)} ≈ ${Math.round(dropsMin)} წვ/წთ</span></div></div>
+                </div>`;
+        }
+
+        function updateIvMode() {
+            const mode = document.getElementById('p3_mode').value;
+            const fieldsEl = document.getElementById('p3_fields');
+            document.getElementById('p3_result').className = 'iv-result-box';
+
+            const timeField = `
+                <div class="iv-field"><label><strong>დრო</strong></label>
+                    <div class="iv-input-row">
+                        <input type="number" id="s_time" placeholder="6" step="1" min="0">
+                        <select id="s_time_unit" style="flex:0 0 auto;width:auto;">
+                            <option value="h">საათი</option>
+                            <option value="m">წუთი</option>
+                        </select>
+                    </div>
+                </div>`;
+
+            const fieldTemplates = {
+                rate: `
+                    <div class="iv-field"><label><strong>მოცულობა</strong></label>
+                        <div class="iv-input-row"><input type="number" id="s_vol" placeholder="1000" min="0"><div class="iv-unit-tag">მლ</div></div>
+                    </div>
+                    ${timeField}`,
+                time: `
+                    <div class="iv-field"><label><strong>მოცულობა</strong></label>
+                        <div class="iv-input-row"><input type="number" id="s_vol" placeholder="750" min="0"><div class="iv-unit-tag">მლ</div></div>
+                    </div>
+                    <div class="iv-field"><label><strong>სიჩქარე</strong></label>
+                        <div class="iv-input-row"><input type="number" id="s_rate" placeholder="25" min="0"><div class="iv-unit-tag">მლ/სთ</div></div>
+                    </div>`,
+                vol: `
+                    <div class="iv-field"><label><strong>სიჩქარე</strong></label>
+                        <div class="iv-input-row"><input type="number" id="s_rate" placeholder="50" min="0"><div class="iv-unit-tag">მლ/სთ</div></div>
+                    </div>
+                    ${timeField}`,
+                drop_simple: `
+                    <div class="iv-field"><label><strong>მოცულობა</strong></label>
+                        <div class="iv-input-row"><input type="number" id="s_vol" placeholder="350" min="0"><div class="iv-unit-tag">მლ</div></div>
+                    </div>
+                    ${timeField}
+                    <div class="iv-field"><label><strong>დროპ ფაქტორი</strong></label>
+                        <div class="iv-input-row">
+                            <select id="s_df">
+                                <option value="60">60 წვ/მლ — მიკრო</option>
+                                <option value="20">20 წვ/მლ — სტანდარტი</option>
+                                <option value="15">15 წვ/მლ</option>
+                                <option value="25">25 წვ/მლ</option>
+                            </select>
+                        </div>
+                    </div>`
+            };
+
+            fieldsEl.innerHTML = fieldTemplates[mode] || '';
+        }
+
+        function calcIvSimple() {
+            const mode = document.getElementById('p3_mode').value;
+            const box = document.getElementById('p3_result');
+
+            const g = (id) => {
+                const el = document.getElementById(id);
+                return el ? parseFloat(el.value) : null;
+            };
+            const gStr = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.value : null;
+            };
+
+            const getTimeHours = () => {
+                const t = g('s_time');
+                const unit = gStr('s_time_unit') || 'h';
+                if (isNaN(t) || t === null) return null;
+                return unit === 'm' ? t / 60 : t;
+            };
+            const getTimeLabel = () => {
+                const t = g('s_time');
+                const unit = gStr('s_time_unit') || 'h';
+                return unit === 'm' ? `${t}წთ` : `${t}სთ`;
+            };
+
+            let result, label, unit, steps = '';
+
+            if (mode === 'rate') {
+                const vol = g('s_vol');
+                const timeH = getTimeHours();
+                if (!vol || !timeH) return showIvSimpleError();
+                result = vol / timeH;
+                label = 'სიჩქარე';
+                unit = 'მლ / სთ';
+                steps = `<div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">${vol}მლ ÷ ${getTimeLabel()} = <span>${result.toFixed(2)} მლ/სთ</span></div></div>`;
+            } else if (mode === 'time') {
+                const vol = g('s_vol');
+                const rate = g('s_rate');
+                if (!vol || !rate) return showIvSimpleError();
+                result = vol / rate;
+                label = 'დრო';
+                unit = '';
+                const h = Math.floor(result);
+                const m = Math.round((result - h) * 60);
+                steps = `<div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">${vol}მლ ÷ ${rate}მლ/სთ = <span>${result.toFixed(2)} სთ → ${h} საათი ${m} წუთი</span></div></div>`;
+                document.getElementById('p3_result').className = 'iv-result-box show';
+                document.getElementById('p3_rlabel').textContent = label || 'დრო';
+                document.getElementById('p3_val').textContent = `${h}სთ ${m}წთ`;
+                document.getElementById('p3_runit').textContent = '';
+                document.getElementById('p3_steps').innerHTML = `<div class="iv-result-steps"><div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>${steps}</div>`;
+                return;
+            } else if (mode === 'vol') {
+                const rate = g('s_rate');
+                const timeH = getTimeHours();
+                if (!rate || !timeH) return showIvSimpleError();
+                result = rate * timeH;
+                label = 'მოცულობა';
+                unit = 'მლ';
+                steps = `<div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">${rate}მლ/სთ × ${getTimeLabel()} = <span>${result.toFixed(1)} მლ</span></div></div>`;
+            } else if (mode === 'drop_simple') {
+                const vol = g('s_vol');
+                const timeH = getTimeHours();
+                const dfEl = document.getElementById('s_df');
+                const df = dfEl ? parseFloat(dfEl.value) : null;
+                if (!vol || !timeH || !df) return showIvSimpleError();
+                const mlMin = vol / (timeH * 60);
+                result = Math.round(mlMin * df);
+                label = 'სიჩქარე';
+                unit = 'წვ / წთ';
+                steps = `
+                    <div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">მლ/წთ = ${vol}მლ ÷ (${getTimeLabel()} × 60) = <span>${mlMin.toFixed(4)} მლ/წთ</span></div></div>
+                    <div class="iv-step"><div class="iv-step-num">2</div><div class="iv-step-text">წვ/წთ = ${mlMin.toFixed(4)} × ${df} = <span>≈ ${result} წვ/წთ</span></div></div>`;
+            }
+
+            box.className = 'iv-result-box show';
+            document.getElementById('p3_rlabel').textContent = label;
+            document.getElementById('p3_val').textContent = typeof result === 'number' ? (Number.isInteger(result) ? result : result.toFixed(2)) : '—';
+            document.getElementById('p3_runit').textContent = unit;
+            document.getElementById('p3_steps').innerHTML = `<div class="iv-result-steps"><div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>${steps}</div>`;
+        }
+
+        function showIvSimpleError() {
+            const box = document.getElementById('p3_result');
+            box.className = 'iv-result-box show error-box';
+            document.getElementById('p3_val').textContent = '!';
+            document.getElementById('p3_steps').innerHTML = '<span class="iv-error-msg">შეავსეთ ყველა ველი</span>';
+        }
+
         // Theme management
         function toggleTheme() {
             const body = document.body;
@@ -395,7 +1228,15 @@
                 themeText.textContent = savedTheme === 'dark' ? 'ღია თემა' : 'მუქი თემა';
             }
         }
-        document.addEventListener('DOMContentLoaded', applyTheme);
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
+            updateIvMode();
+            toggleIvDropFactor();
+            const ivDropFactor = document.getElementById('p2_drop_factor');
+            if (ivDropFactor) {
+                ivDropFactor.addEventListener('change', toggleIvDropFactor);
+            }
+        });
 
         // Core calculator functions
         const fmt = (n) => {
