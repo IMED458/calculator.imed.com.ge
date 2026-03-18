@@ -3,322 +3,651 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>IMEDCalc - სამედიცინო კალკულატორები</title>
+    <title>iMed Calc - სამედიცინო კალკულატორები</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Georgian:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Georgian:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for Dark and Light Themes */
-        :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --surface: #334155;
-            --muted: #94a3b8;
-            --text: #e2e8f0;
-            --brand: #22d3ee;
-            --brand-2: #818cf8;
-            --ok: #22c55e;
-            --warn: #f59e0b;
-            --err: #ef4444;
-            --ring: rgba(34, 211, 238, 0.35);
-            --shadow-3: 0 10px 30px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.35);
-            --radius-2xl: 1.25rem;
+        * {
+            box-sizing: border-box;
         }
 
-        [data-theme="light"] {
-            --bg: #f1f5f9;
-            --card: #ffffff;
-            --surface: #f8fafc;
-            --muted: #64748b;
-            --text: #1f2937;
-            --brand: #06b6d4;
-            --brand-2: #4f46e5;
-            --ok: #059669;
-            --warn: #d97706;
-            --err: #dc2626;
-            --ring: rgba(6, 182, 212, 0.25);
-            --shadow-3: 0 10px 30px rgba(0,0,0,.1), 0 2px 8px rgba(0,0,0,.05);
+        html {
+            scroll-behavior: smooth;
         }
 
-        * { box-sizing: border-box; }
-        html, body { height: 100%; }
         body {
+            --bg: #f5f8fc;
+            --surface: rgba(255, 255, 255, 0.9);
+            --surface-solid: #ffffff;
+            --surface-soft: #eef4fb;
+            --surface-soft-2: #f8fbff;
+            --border: #d6e1ef;
+            --text: #17233d;
+            --muted: #6f809f;
+            --accent: #0aa39a;
+            --accent-strong: #087f78;
+            --accent-soft: #e7fbf8;
+            --ok: #14966f;
+            --warn: #e5852f;
+            --err: #dc4d47;
+            --shadow-lg: 0 24px 60px rgba(20, 33, 61, 0.08);
+            --shadow-md: 0 16px 36px rgba(20, 33, 61, 0.06);
+            --shadow-pill: 0 18px 40px rgba(10, 163, 154, 0.18);
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'IBM Plex Sans Georgian', 'Inter', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(48rem 28rem at 15% 0%, rgba(10, 163, 154, 0.08), transparent 65%),
+                radial-gradient(38rem 22rem at 85% 12%, rgba(84, 107, 255, 0.08), transparent 62%),
+                var(--bg);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body[data-theme="dark"] {
+            --bg: #09111f;
+            --surface: rgba(15, 24, 44, 0.88);
+            --surface-solid: #111c31;
+            --surface-soft: #14233d;
+            --surface-soft-2: #0f1b31;
+            --border: #21314c;
+            --text: #edf3ff;
+            --muted: #95a5c3;
+            --accent: #12c3b5;
+            --accent-strong: #87f5e9;
+            --accent-soft: rgba(18, 195, 181, 0.12);
+            --ok: #3acc90;
+            --warn: #f0a24f;
+            --err: #ff7a73;
+            --shadow-lg: 0 30px 70px rgba(0, 0, 0, 0.35);
+            --shadow-md: 0 20px 48px rgba(0, 0, 0, 0.24);
+            --shadow-pill: 0 18px 40px rgba(18, 195, 181, 0.12);
+            background:
+                radial-gradient(48rem 28rem at 15% 0%, rgba(18, 195, 181, 0.12), transparent 65%),
+                radial-gradient(38rem 22rem at 85% 12%, rgba(84, 107, 255, 0.14), transparent 62%),
+                var(--bg);
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: inherit;
+        }
+
+        input,
+        select {
+            width: 100%;
+            border: 1px solid transparent;
+            border-radius: 18px;
+            padding: 16px 18px;
+            background: var(--surface-soft);
+            color: var(--text);
+            font-size: 16px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        input::placeholder {
+            color: color-mix(in srgb, var(--muted) 80%, transparent);
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+            background: var(--surface-solid);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: color-mix(in srgb, var(--surface-solid) 88%, transparent);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .container {
+            width: min(1320px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar-inner {
+            min-height: 108px;
+            display: grid;
+            grid-template-columns: auto minmax(280px, 1fr) auto;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 18px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-mark {
+            width: 82px;
+            height: 82px;
+            flex-shrink: 0;
+            border-radius: 26px;
+            background: linear-gradient(135deg, #07a79d, #0a8e86);
+            color: #ffffff;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 18px 40px rgba(9, 157, 145, 0.26);
+        }
+
+        .brand-mark svg {
+            width: 44px;
+            height: 44px;
+        }
+
+        .brand-text h1 {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            transition: background-color .3s, color .3s;
-            line-height: 1.6;
-        }
-        [data-theme="dark"] body {
-            background: radial-gradient(80rem 40rem at 10% -10%, rgba(129,140,248,.08), transparent 60%),
-                        radial-gradient(70rem 30rem at 110% 10%, rgba(34,211,238,.08), transparent 60%),
-                        var(--bg);
+            font-weight: 800;
+            font-size: clamp(2rem, 3vw, 3rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
-        header {
-            background: var(--card);
-            padding: 1.4rem 1.2rem;
-            border-radius: var(--radius-2xl);
-            box-shadow: var(--shadow-3);
+        .brand-text p {
+            margin: 8px 0 0;
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 1.3vw, 1.25rem);
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .topbar-tools {
+            display: contents;
+        }
+
+        .search-shell {
+            justify-self: center;
+            width: min(100%, 520px);
             display: flex;
             align-items: center;
-            gap: 1rem;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            border: 1px solid var(--surface);
+            gap: 16px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            padding: 0 24px;
+            background: var(--surface-soft);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
         }
-        
-        .brand { display: flex; align-items: center; gap: .9rem; }
-        .logo {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, var(--brand), var(--brand-2));
-            box-shadow: 0 8px 25px rgba(34,211,238,.25);
+
+        .search-shell:focus-within {
+            border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+            background: var(--surface-solid);
+        }
+
+        .search-shell svg {
+            width: 28px;
+            height: 28px;
+            color: #8fa1bf;
+            flex-shrink: 0;
+        }
+
+        .search-shell input {
+            border: none;
+            padding: 18px 0;
+            background: transparent;
+            box-shadow: none;
+            font-size: 18px;
+        }
+
+        .header-actions {
             display: flex;
+            align-items: center;
+            gap: 18px;
+            justify-self: end;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 48px;
+            background: var(--border);
+        }
+
+        .icon-btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            padding: 0 18px;
+            border-radius: 999px;
+            color: color-mix(in srgb, var(--text) 82%, var(--muted));
+            transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-1px);
+            background: color-mix(in srgb, var(--surface-soft) 92%, transparent);
+        }
+
+        .icon-btn svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .lang-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .theme-toggle {
+            width: 52px;
+            padding: 0;
+        }
+
+        .main-content {
+            padding: 38px 0 64px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: clamp(36px, 8vw, 120px) 0 28px;
+        }
+
+        .hero h2 {
+            margin: 0;
+            font-family: 'IBM Plex Sans Georgian', sans-serif;
+            font-size: clamp(2.8rem, 8vw, 6.6rem);
+            line-height: 0.94;
+            letter-spacing: -0.05em;
+            max-width: 1080px;
+            margin-inline: auto;
+        }
+
+        .hero p {
+            max-width: 860px;
+            margin: 28px auto 0;
+            color: var(--muted);
+            font-size: clamp(1.1rem, 2vw, 1.9rem);
+            line-height: 1.5;
+        }
+
+        .hero-note {
+            margin-top: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: color-mix(in srgb, var(--surface-solid) 92%, transparent);
+            color: var(--muted);
+            font-size: 0.98rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-note svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .calc-switcher {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 38px;
+        }
+
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 14px;
+            width: 100%;
+            padding: 22px 24px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--surface-solid) 95%, transparent);
+            color: #4b5d7b;
+            font-family: 'IBM Plex Sans Georgian', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            line-height: 1.15;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-pill:hover {
+            transform: translateY(-2px);
+            border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+        }
+
+        .nav-pill.active {
+            background: linear-gradient(135deg, var(--accent), #0db8ae);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: var(--shadow-pill);
+        }
+
+        .nav-pill svg {
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .search-empty {
+            margin: 20px 0 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .calculator-stack {
+            margin-top: 26px;
+            display: grid;
+            gap: 20px;
+        }
+
+        .calc-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            transition: grid-template-rows 0.35s ease, opacity 0.35s ease;
+        }
+
+        .calc-panel.open {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+
+        .calc-panel-inner {
+            min-height: 0;
             overflow: hidden;
         }
-        [data-theme="light"] .logo {
-            box-shadow: 0 8px 25px rgba(6, 182, 212, .2);
-        }
-        .logo svg {
-            width: 90%;
-            height: 90%;
-            color: var(--card);
-        }
-        .brand h1 { margin: 0; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; }
-        .brand p { margin: 0; color: var(--muted); font-size: .95rem; }
-        .disclaimer { color: var(--muted); font-size: .9rem; margin-top: 1rem; }
-        .theme-toggle {
-            background: var(--surface);
-            color: var(--text);
-            border: 1px solid var(--muted);
-            border-radius: 999px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        .theme-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,.1);
-        }
 
-        .grid { display: grid; gap: 1.5rem; margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        .card {
-            background: var(--card);
-            border: 1px solid var(--surface);
-            border-radius: var(--radius-2xl);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.55), 0 5px 15px rgba(0,0,0,0.45);
-        }
-        [data-theme="light"] .card:hover {
-            box-shadow: 0 15px 40px rgba(0,0,0,.15), 0 5px 15px rgba(0,0,0,.1);
-        }
-
-        .card h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; }
-        .formula {
-            font-family: 'Fira Sans', monospace;
-            font-size: 1rem;
-            color: var(--brand);
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed var(--surface);
-            margin-bottom: 1rem;
-        }
-        .muted { color: var(--muted); font-size: .92rem; }
-        .row { display: grid; gap: 1rem; }
-        @media (min-width: 600px) {
-            .row { grid-template-columns: 1fr 1fr; }
-        }
-        label { display: block; font-size: .9rem; margin-bottom: 0.25rem; color: var(--text); }
-        input, select {
-            width: 100%;
-            padding: .85rem 1rem;
-            background: var(--surface);
-            color: var(--text);
-            border: 1px solid var(--muted);
-            border-radius: .75rem;
-            outline: none;
-            transition: border-color .2s, box-shadow .2s;
-        }
-        input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring); }
-        .btns { display: flex; gap: .8rem; margin-top: 1.5rem; flex-wrap: wrap; }
-        button {
-            padding: .8rem 1.2rem;
-            border: none;
-            border-radius: .75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all .2s ease;
-            background: linear-gradient(135deg, var(--brand), var(--brand-2));
-            color: var(--card);
-            box-shadow: 0 8px 20px rgba(34,211,238,.25);
-        }
-        button:hover { transform: translateY(-2px); filter: saturate(1.1); }
-        .ghost {
-            background: var(--surface);
-            color: var(--text);
-            border: 1px solid var(--muted);
-            box-shadow: none;
-        }
-        .result {
-            margin-top: 1.5rem;
-            padding: 1rem 1.2rem;
-            border-radius: .75rem;
-            background: var(--surface);
-            border: 1px dashed var(--brand-2);
-            font-weight: 700;
-            letter-spacing: .3px;
-        }
-        .note { margin-top: 1rem; padding: .8rem 1rem; border-left: 4px solid var(--warn); background: rgba(245, 158, 11, .1); border-radius:.5rem; }
-        .success { border-left-color: var(--ok); background: rgba(34, 197, 94, .1); }
-        .danger { border-left-color: var(--err); background: rgba(239, 68, 68, .1); }
-        .foot { margin-top: 2rem; color: var(--muted); font-size: .85rem; text-align: center; }
-        .tag, .chip {
-            display: inline-block;
-            font-size: .75rem;
-            padding: .25rem .6rem;
-            border-radius: 999px;
-            background: var(--surface);
-            border: 1px solid var(--muted);
-            margin-left: .5rem;
-            color: var(--text);
-        }
-        .chip { background: rgba(34,211,238,.12); border-color: rgba(34,211,238,.25); color: #a5f3fc; }
-        [data-theme="light"] .chip { background: rgba(6, 182, 212, .1); border-color: rgba(6, 182, 212, .25); color: #0891b2; }
-
+        .calc-card,
         .iv-suite {
-            --iv-bg: #0d1117;
-            --iv-surface: #161b22;
-            --iv-card: #1c2230;
-            --iv-border: #2d3748;
-            --iv-accent: #00d4aa;
-            --iv-accent2: #0099ff;
-            --iv-accent3: #ff6b35;
-            --iv-text: #e6edf3;
-            --iv-muted: #8b949e;
-            --iv-success: #3fb950;
-            --iv-warn: #f0883e;
-            --iv-error: #f85149;
-            --iv-mono: 'IBM Plex Mono', monospace;
-            --iv-sans: 'IBM Plex Sans Georgian', sans-serif;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: calc(var(--radius-2xl) + .25rem);
-            border: 1px solid rgba(45, 55, 72, 0.9);
-            background:
-                radial-gradient(50rem 24rem at 10% -10%, rgba(0, 212, 170, 0.08), transparent 60%),
-                radial-gradient(40rem 20rem at 100% 0%, rgba(0, 153, 255, 0.09), transparent 55%),
-                var(--iv-bg);
-            color: var(--iv-text);
-            font-family: var(--iv-sans);
-            box-shadow: var(--shadow-3);
+            background: color-mix(in srgb, var(--surface-solid) 96%, transparent);
+            border: 1px solid var(--border);
+            border-radius: 34px;
+            padding: clamp(22px, 3vw, 34px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .iv-header {
-            text-align: center;
-            padding: 1rem 0 2.25rem;
-            position: relative;
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
-        .iv-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--iv-accent), transparent);
-            opacity: 0.35;
-        }
-
-        .iv-badge {
-            display: inline-block;
-            background: rgba(0, 212, 170, 0.1);
-            border: 1px solid rgba(0, 212, 170, 0.3);
-            color: var(--iv-accent);
-            font-family: var(--iv-mono);
-            font-size: 11px;
-            letter-spacing: 2px;
+        .card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent-strong);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 2px;
+        }
+
+        .calc-card h3,
+        .iv-suite h3 {
+            margin: 12px 0 0;
+            font-size: clamp(1.5rem, 2vw, 2rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.55;
+        }
+
+        .formula {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 20px;
+            padding: 14px 18px;
+            border-radius: 20px;
+            background: var(--surface-soft);
+            color: var(--accent-strong);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.96rem;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .formula::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field {
             margin-bottom: 16px;
         }
 
-        .iv-header h2 {
-            margin: 0 0 8px;
-            font-size: clamp(22px, 4vw, 32px);
-            font-weight: 800;
-            color: var(--iv-text);
-            letter-spacing: -0.5px;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: color-mix(in srgb, var(--text) 78%, var(--muted));
+            font-size: 0.96rem;
+            font-weight: 600;
         }
 
-        .iv-subtitle {
-            color: var(--iv-muted);
-            font-size: 14px;
-            font-family: var(--iv-mono);
-            margin: 0;
+        .btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .btns button,
+        .iv-calc-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 0 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btns button:first-child,
+        .iv-calc-btn {
+            background: linear-gradient(135deg, var(--accent), #0eb7ae);
+            color: #ffffff;
+            box-shadow: var(--shadow-pill);
+        }
+
+        .btns button:first-child:hover,
+        .iv-calc-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .ghost {
+            background: var(--surface-soft);
+            color: var(--text);
+            border: 1px solid var(--border);
+            box-shadow: none;
+        }
+
+        .ghost:hover {
+            transform: translateY(-1px);
+            background: var(--surface-soft-2);
+        }
+
+        .result,
+        .iv-result-box {
+            margin-top: 20px;
+            padding: 20px 22px;
+            border-radius: 24px;
+            border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+            background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface-solid));
+            color: var(--text);
+            font-size: 1.02rem;
+            font-weight: 700;
+        }
+
+        .iv-result-box {
+            display: none;
+        }
+
+        .iv-result-box.show {
+            display: block;
+        }
+
+        .iv-result-box.error-box {
+            background: color-mix(in srgb, var(--err) 7%, var(--surface-solid));
+            border-color: color-mix(in srgb, var(--err) 25%, var(--border));
+        }
+
+        .result-label,
+        .iv-result-label {
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 8px;
+        }
+
+        .result-value,
+        .iv-result-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: clamp(2rem, 4vw, 3.1rem);
+            line-height: 1;
+            color: var(--accent-strong);
+        }
+
+        .result-unit,
+        .iv-result-unit {
+            margin-top: 6px;
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.96rem;
+        }
+
+        .note {
+            margin-top: 18px;
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: color-mix(in srgb, var(--warn) 9%, var(--surface-solid));
+            border: 1px solid color-mix(in srgb, var(--warn) 20%, var(--border));
+            color: color-mix(in srgb, var(--text) 80%, var(--warn));
+        }
+
+        .note.success {
+            background: color-mix(in srgb, var(--ok) 9%, var(--surface-solid));
+            border-color: color-mix(in srgb, var(--ok) 20%, var(--border));
+            color: color-mix(in srgb, var(--text) 80%, var(--ok));
+        }
+
+        .tag,
+        .chip,
+        .iv-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .iv-info-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .iv-chip {
+            margin-left: 0;
+        }
+
+        .iv-suite .card-top {
+            margin-bottom: 26px;
         }
 
         .iv-tabs {
             display: flex;
-            gap: 4px;
-            background: var(--iv-surface);
-            border: 1px solid var(--iv-border);
-            border-radius: 8px;
-            padding: 4px;
-            max-width: 700px;
-            margin: 0 auto 32px;
             flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 22px;
         }
 
         .iv-tab {
-            flex: 1;
-            padding: 10px 8px;
-            background: transparent;
-            border: none;
-            border-radius: 5px;
-            color: var(--iv-muted);
-            font-family: var(--iv-sans);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0 18px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--surface-soft);
+            color: #4d607e;
+            font-size: 0.96rem;
+            font-weight: 700;
             box-shadow: none;
-        }
-
-        .iv-tab:hover {
-            color: var(--iv-text);
-            background: rgba(255, 255, 255, 0.04);
-            transform: none;
-            filter: none;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
 
         .iv-tab.active {
-            background: var(--iv-card);
-            color: var(--iv-accent);
-            border: 1px solid rgba(0, 212, 170, 0.25);
-        }
-
-        .iv-panels {
-            max-width: 700px;
-            margin: 0 auto;
+            background: var(--accent-soft);
+            border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+            color: var(--accent-strong);
         }
 
         .iv-panel {
@@ -329,647 +658,792 @@
             display: block;
         }
 
-        .iv-card {
-            background: var(--iv-card);
-            border: 1px solid var(--iv-border);
-            border-radius: 12px;
-            padding: 28px;
-            margin-bottom: 16px;
-            box-shadow: none;
+        .iv-subcard {
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: var(--surface-soft-2);
+            padding: clamp(18px, 2vw, 28px);
         }
 
         .iv-card-title {
-            font-size: 13px;
-            font-family: var(--iv-mono);
-            color: var(--iv-accent);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 600;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: var(--accent-strong);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .iv-card-title::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: var(--iv-accent);
+            content: "";
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .iv-formula-box {
+            margin-bottom: 18px;
+            padding: 15px 18px;
+            border-radius: 20px;
+            background: color-mix(in srgb, var(--accent-soft) 45%, var(--surface-solid));
+            border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+            color: var(--accent-strong);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.94rem;
+            line-height: 1.55;
         }
 
         .iv-field {
             margin-bottom: 16px;
         }
 
-        .iv-suite label {
-            display: block;
-            font-size: 13px;
-            color: var(--iv-muted);
-            margin-bottom: 6px;
-            font-weight: 400;
-        }
-
-        .iv-suite label strong {
-            color: var(--iv-text);
-            font-weight: 600;
-        }
-
         .iv-input-row {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: stretch;
         }
 
+        .iv-input-row > * {
+            min-width: 0;
+        }
+
         .iv-suite input[type="number"] {
-            flex: 1;
-            background: var(--iv-surface);
-            border: 1px solid var(--iv-border);
-            border-radius: 6px;
-            color: var(--iv-text);
-            font-family: var(--iv-mono);
-            font-size: 18px;
-            padding: 12px 14px;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            width: 100%;
-        }
-
-        .iv-suite input[type="number"]:focus,
-        .iv-suite select:focus {
-            border-color: var(--iv-accent);
-            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
-        }
-
-        .iv-suite input[type="number"]::placeholder {
-            color: #4b5563;
-        }
-
-        .iv-unit-tag {
-            background: var(--iv-surface);
-            border: 1px solid var(--iv-border);
-            border-radius: 6px;
-            padding: 12px 14px;
-            color: var(--iv-muted);
-            font-family: var(--iv-mono);
-            font-size: 13px;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
         }
 
         .iv-suite select {
-            flex: 1;
-            background: var(--iv-surface);
-            border: 1px solid var(--iv-border);
-            border-radius: 6px;
-            color: var(--iv-text);
-            font-family: var(--iv-sans);
-            font-size: 14px;
-            padding: 12px 14px;
-            outline: none;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236f809f' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 14px center;
-            padding-right: 36px;
-            width: 100%;
+            background-position: right 18px center;
+            appearance: none;
+            padding-right: 40px;
+        }
+
+        .iv-unit-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 88px;
+            padding: 0 16px;
+            border-radius: 18px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
 
         .iv-divider {
             height: 1px;
-            background: var(--iv-border);
-            margin: 20px 0;
-        }
-
-        .iv-calc-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--iv-accent);
-            color: #0d1117;
-            border: none;
-            border-radius: 8px;
-            font-family: var(--iv-sans);
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-            transition: all 0.2s ease;
-            margin-top: 8px;
-            box-shadow: none;
-        }
-
-        .iv-calc-btn:hover {
-            background: #00f0c0;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
-            filter: none;
-        }
-
-        .iv-calc-btn:active {
-            transform: translateY(0);
-        }
-
-        .iv-result-box {
-            background: var(--iv-surface);
-            border: 1px solid rgba(0, 212, 170, 0.3);
-            border-radius: 10px;
-            padding: 24px;
-            margin-top: 16px;
-            display: none;
-        }
-
-        .iv-result-box.show {
-            display: block;
-        }
-
-        .iv-result-box.error-box {
-            border-color: rgba(248, 81, 73, 0.4);
-            background: rgba(248, 81, 73, 0.05);
-        }
-
-        .iv-result-label {
-            font-size: 12px;
-            color: var(--iv-muted);
-            font-family: var(--iv-mono);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-
-        .iv-result-value {
-            font-size: 42px;
-            font-weight: 700;
-            color: var(--iv-accent);
-            font-family: var(--iv-mono);
-            line-height: 1;
-        }
-
-        .iv-result-unit {
-            font-size: 16px;
-            color: var(--iv-muted);
-            font-family: var(--iv-mono);
-            margin-top: 2px;
+            margin: 18px 0;
+            background: var(--border);
         }
 
         .iv-result-steps {
-            margin-top: 20px;
+            margin-top: 16px;
             padding-top: 16px;
-            border-top: 1px solid var(--iv-border);
+            border-top: 1px solid var(--border);
         }
 
         .iv-step {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-            font-size: 13px;
-            color: var(--iv-muted);
-            font-family: var(--iv-mono);
+            gap: 12px;
+            margin-bottom: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.55;
         }
 
         .iv-step-num {
-            background: rgba(0, 212, 170, 0.15);
-            color: var(--iv-accent);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
+            width: 24px;
+            height: 24px;
             flex-shrink: 0;
-            margin-top: 1px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--accent-soft);
+            color: var(--accent-strong);
+            font-size: 0.78rem;
+            font-weight: 700;
         }
 
         .iv-step-text {
-            color: var(--iv-text);
-            line-height: 1.5;
+            color: var(--text);
         }
 
         .iv-step-text span {
-            color: var(--iv-accent);
-        }
-
-        .iv-formula-box {
-            background: rgba(0, 153, 255, 0.06);
-            border: 1px solid rgba(0, 153, 255, 0.2);
-            border-radius: 8px;
-            padding: 14px 16px;
-            margin-bottom: 20px;
-            font-family: var(--iv-mono);
-            font-size: 13px;
-            color: var(--iv-accent2);
-            line-height: 1.6;
+            color: var(--accent-strong);
         }
 
         .iv-error-msg {
-            color: var(--iv-error);
-            font-size: 14px;
-            font-family: var(--iv-mono);
+            color: var(--err);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
         }
 
-        .iv-info-chips {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
+        .foot {
+            padding: 10px 0 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.95rem;
         }
 
-        .iv-chip {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--iv-border);
-            border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 12px;
-            color: var(--iv-muted);
-            font-family: var(--iv-mono);
+        @media (max-width: 1120px) {
+            .topbar-inner {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 20px 0;
+            }
+
+            .topbar-tools {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 16px;
+                align-items: center;
+            }
+
+            .search-shell {
+                justify-self: stretch;
+                width: 100%;
+            }
+
+            .header-actions {
+                justify-self: end;
+            }
         }
 
-        @media (max-width: 760px) {
-            .iv-suite {
-                padding: 1rem;
+        @media (max-width: 820px) {
+            .container {
+                width: min(100% - 24px, 1320px);
             }
 
-            .iv-card {
-                padding: 20px;
+            .brand-mark {
+                width: 72px;
+                height: 72px;
+                border-radius: 22px;
+            }
+
+            .hero p {
+                margin-top: 20px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .card-top {
+                flex-direction: column;
             }
         }
 
-        @media (max-width: 500px) {
-            .iv-tab {
-                font-size: 12px;
-                padding: 8px 4px;
+        @media (max-width: 640px) {
+            .topbar {
+                position: static;
             }
 
-            .iv-result-value {
-                font-size: 32px;
+            .topbar-inner {
+                min-height: auto;
             }
 
-            .iv-suite .iv-input-row {
+            .topbar-tools {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .header-divider {
+                display: none;
+            }
+
+            .search-shell {
+                padding: 0 18px;
+            }
+
+            .search-shell input {
+                padding: 16px 0;
+                font-size: 16px;
+            }
+
+            .hero {
+                padding-top: 24px;
+            }
+
+            .hero-note {
+                width: 100%;
+                justify-content: center;
+                border-radius: 24px;
+                text-align: left;
+            }
+
+            .calc-switcher {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .nav-pill {
+                font-size: 1.08rem;
+                padding: 18px 18px;
+            }
+
+            .btns {
+                flex-direction: column;
+            }
+
+            .btns button,
+            .iv-calc-btn {
+                width: 100%;
+            }
+
+            .iv-tabs {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .iv-input-row {
                 flex-wrap: wrap;
             }
 
-            .iv-suite .iv-input-row > * {
-                min-width: 0;
+            .iv-unit-tag,
+            .iv-input-row select {
+                width: 100%;
+                min-height: 54px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a class="brand" href="./iMEDCalc.html" aria-label="iMed Calc">
+                <div class="brand-mark">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12V25C19 32.18 24.82 38 32 38C39.18 38 45 32.18 45 25V12" />
+                        <path d="M19 12H15V19" />
+                        <path d="M45 12H49V19" />
+                        <path d="M32 38V45C32 52.18 37.82 58 45 58C50.52 58 55 53.52 55 48C55 43.58 51.42 40 47 40C43.13 40 40 43.13 40 47C40 50.04 42.46 52.5 45.5 52.5C48.54 52.5 51 50.04 51 47" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>iMed Calc</h1>
+                    <p>Medical Tools</p>
+                </div>
+            </a>
+
+            <div class="topbar-tools">
+                <label class="search-shell" aria-label="კალკულატორის ძიება">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+                        <path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <input id="calculator-search" type="search" placeholder="ძიება..." oninput="filterCalculators()" />
+                </label>
+
+                <div class="header-actions">
+                    <div class="header-divider"></div>
+                    <button type="button" class="icon-btn lang-btn" aria-label="ინგლისური ვერსია">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+                            <path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 3C14.5 5.4 16 8.58 16 12C16 15.42 14.5 18.6 12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 3C9.5 5.4 8 8.58 8 12C8 15.42 9.5 18.6 12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <span>EN</span>
+                    </button>
+                    <button id="theme-toggle" type="button" class="icon-btn theme-toggle" onclick="toggleTheme()">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3C11.47 3 11.72 3.01 11.97 3.03C10.17 4.16 9 6.17 9 8.45C9 11.98 11.87 14.85 15.4 14.85C17.75 14.85 19.8 13.59 20.91 11.71C20.97 12.07 21 12.43 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span id="theme-text" class="sr-only">მუქი თემა</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h2>კლინიკური გადაწყვეტილებების მხარდაჭერა</h2>
+                <p>სწრაფი, ზუსტი და მტკიცებულებებზე დაფუძნებული სამედიცინო კალკულატორები ყოველდღიური კლინიკური პრაქტიკისთვის.</p>
+                <div class="hero-note">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+                        <path d="M12 8V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <circle cx="12" cy="16" r="1" fill="currentColor" />
+                    </svg>
+                    <span>დამხმარე ხელსაწყო. სავალდებულოა შედეგების გადამოწმება კლინიკურ პროტოკოლებთან.</span>
+                </div>
+
+                <div class="calc-switcher" id="calculator-switcher">
+                    <button class="nav-pill active" type="button" data-target="panel-bicarb" data-search="სოდა ბუფერი ბიკარბონატი bicarb" onclick="toggleCalculator('panel-bicarb')">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="3" width="16" height="18" rx="3" stroke="currentColor" stroke-width="2" />
+                            <path d="M8 8H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M8 12H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M14 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M8 16H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M14 16H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <span>სოდა ბუფერი</span>
+                    </button>
+
+                    <button class="nav-pill" type="button" data-target="panel-potassium" data-search="კალიუმის გადასხმა potassium კალიუმი" onclick="toggleCalculator('panel-potassium')">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 12H8L10.5 5L14.5 19L17 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>კალიუმის გადასხმა</span>
+                    </button>
+
+                    <button class="nav-pill" type="button" data-target="panel-kcoef" data-search="k კოეფიციენტი კონცენტრაცია" onclick="toggleCalculator('panel-kcoef')">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 3V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M5 7H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M13 11H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M5 15H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <span>K კოეფიციენტი</span>
+                    </button>
+
+                    <button class="nav-pill" type="button" data-target="panel-solu" data-search="სოლუმედროლი solu მედროლი" onclick="toggleCalculator('panel-solu')">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 7L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M15 5L19 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M5 15L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M14 6L6 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M18 10L10 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <span>სოლუმედროლი</span>
+                    </button>
+
+                    <button class="nav-pill" type="button" data-target="panel-iv" data-search="ინტრავენური გადასხმა iv infusion პამპი წვეთოვანი" onclick="toggleCalculator('panel-iv')">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M9 10H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M10 10V15C10 17.21 8.21 19 6 19C5.45 19 5 18.55 5 18V16C5 15.45 5.45 15 6 15C7.1 15 8 14.1 8 13V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M14 10V15C14 17.21 15.79 19 18 19C18.55 19 19 18.55 19 18V16C19 15.45 18.55 15 18 15C16.9 15 16 14.1 16 13V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>ინტრავენური გადასხმა</span>
+                    </button>
+                </div>
+
+                <p id="search-empty" class="search-empty" hidden>მითითებული სახელით კალკულატორი ვერ მოიძებნა.</p>
+            </section>
+
+            <section class="calculator-stack">
+                <div class="calc-panel open" id="panel-bicarb">
+                    <div class="calc-panel-inner">
+                        <section class="calc-card" id="bicarb-card">
+                            <div class="card-top">
+                                <div>
+                                    <span class="card-label">ფორმულა</span>
+                                    <h3>სოდა ბუფერი — გადასხმის გამოთვლა</h3>
+                                </div>
+                                <p class="muted">შეიყვანეთ პაციენტის მონაცემები. შედეგი გამოისახება ქვემოთ.</p>
+                            </div>
+
+                            <div class="formula">წონა × BE(act) × 2 × 0.3</div>
+
+                            <div class="row">
+                                <div>
+                                    <label for="bicarb-weight">პაციენტის წონა (კგ)</label>
+                                    <input id="bicarb-weight" type="number" min="0" step="0.1" placeholder="მაგ. 70" />
+                                </div>
+                                <div>
+                                    <label for="bicarb-be">BE(act)</label>
+                                    <input id="bicarb-be" type="number" step="0.1" placeholder="მაგ. -8" />
+                                </div>
+                            </div>
+
+                            <div class="btns">
+                                <button type="button" onclick="calcBicarb()">გამოთვლა</button>
+                                <button type="button" class="ghost" onclick="resetCard('bicarb-card')">გასუფთავება</button>
+                                <button type="button" class="ghost" onclick="copyResult('bicarb-result')">კოპირება</button>
+                            </div>
+
+                            <div id="bicarb-result" class="result" aria-live="polite">შედეგი: —</div>
+                            <div class="note">შენიშვნა: ერთეულების ინტერპრეტაცია შეადარეთ თქვენს პროტოკოლს და ხსნარის კონცენტრაციას.</div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="calc-panel" id="panel-potassium">
+                    <div class="calc-panel-inner">
+                        <section class="calc-card" id="potassium-card">
+                            <div class="card-top">
+                                <div>
+                                    <span class="card-label">ნელი გადასხმა</span>
+                                    <h3>კალიუმის გადასხმა</h3>
+                                </div>
+                                <p class="muted">ფორმულა ითვლის საჭირო ოდენობას მითითებული კალიუმის დონის შესაბამისად.</p>
+                            </div>
+
+                            <div class="formula">წონა × 1.74 ÷ კალიუმის მაჩვენებელი</div>
+
+                            <div class="row">
+                                <div>
+                                    <label for="k-weight">პაციენტის წონა (კგ)</label>
+                                    <input id="k-weight" type="number" min="0" step="0.1" placeholder="მაგ. 70" />
+                                </div>
+                                <div>
+                                    <label for="k-level">კალიუმის მაჩვენებელი (mmol/L)</label>
+                                    <input id="k-level" type="number" min="0.1" step="0.1" placeholder="მაგ. 3.0" />
+                                </div>
+                            </div>
+
+                            <div class="btns">
+                                <button type="button" onclick="calcPotassium()">გამოთვლა</button>
+                                <button type="button" class="ghost" onclick="resetCard('potassium-card')">გასუფთავება</button>
+                                <button type="button" class="ghost" onclick="copyResult('potassium-result')">კოპირება</button>
+                            </div>
+
+                            <div id="potassium-result" class="result" aria-live="polite">შედეგი: —</div>
+                            <div class="note success">აუცილებლად <strong>ნელა</strong> გადაისხას ინსტიტუციური წესებისა და კლინიკური პროტოკოლის შესაბამისად.</div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="calc-panel" id="panel-kcoef">
+                    <div class="calc-panel-inner">
+                        <section class="calc-card" id="kcoef-card">
+                            <div class="card-top">
+                                <div>
+                                    <span class="card-label">კონცენტრაცია</span>
+                                    <h3>K კოეფიციენტი</h3>
+                                </div>
+                                <p class="muted">შედეგი პრაქტიკულად უდრის კონცენტრაციას <em>(მკგ/მლ)</em>, თუ მოცულობა შეყვანილია მლ-ში.</p>
+                            </div>
+
+                            <div class="formula">მედიკამენტის მილიგრამი × 1000 ÷ ხსნარის რაოდენობა</div>
+
+                            <div class="row">
+                                <div>
+                                    <label for="kcoef-mg">მედიკამენტის რაოდენობა (mg)</label>
+                                    <input id="kcoef-mg" type="number" min="0" step="0.1" placeholder="მაგ. 500" />
+                                </div>
+                                <div>
+                                    <label for="kcoef-vol">ხსნარის რაოდენობა (მლ)</label>
+                                    <input id="kcoef-vol" type="number" min="0.1" step="0.1" placeholder="მაგ. 100" />
+                                </div>
+                            </div>
+
+                            <div class="btns">
+                                <button type="button" onclick="calcKcoef()">გამოთვლა</button>
+                                <button type="button" class="ghost" onclick="resetCard('kcoef-card')">გასუფთავება</button>
+                                <button type="button" class="ghost" onclick="copyResult('kcoef-result')">კოპირება</button>
+                            </div>
+
+                            <div id="kcoef-result" class="result" aria-live="polite">შედეგი: —</div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="calc-panel" id="panel-solu">
+                    <div class="calc-panel-inner">
+                        <section class="calc-card" id="solu-card">
+                            <div class="card-top">
+                                <div>
+                                    <span class="card-label">დამრტყმელი დოზა</span>
+                                    <h3>სოლუმედროლი</h3>
+                                </div>
+                                <p class="muted">შეიყვანეთ მხოლოდ პაციენტის წონა. სისტემა გამოთვლის დოზას და დაგიტოვებთ სწრაფ მითითებას.</p>
+                            </div>
+
+                            <div class="formula">30 mg/kg — გადასხმა 15 წუთში</div>
+
+                            <div class="row">
+                                <div>
+                                    <label for="solu-weight">პაციენტის წონა (კგ)</label>
+                                    <input id="solu-weight" type="number" min="0" step="0.1" placeholder="მაგ. 70" />
+                                </div>
+                                <div>
+                                    <label for="solu-dummy">დოზირების ფურცელი</label>
+                                    <input id="solu-dummy" type="text" placeholder="არასავალდებულო შენიშვნა" />
+                                </div>
+                            </div>
+
+                            <div class="btns">
+                                <button type="button" onclick="calcSolu()">გამოთვლა</button>
+                                <button type="button" class="ghost" onclick="resetCard('solu-card')">გასუფთავება</button>
+                                <button type="button" class="ghost" onclick="copyResult('solu-result')">კოპირება</button>
+                            </div>
+
+                            <div id="solu-result" class="result" aria-live="polite">შედეგი: —</div>
+                            <div class="note success">რეკომენდაცია: პამპი დააყენეთ <strong>200 მლ/სთ</strong>-ზე. გადასხმა უნდა დასრულდეს დაახლოებით 15 წუთში.</div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="calc-panel" id="panel-iv">
+                    <div class="calc-panel-inner">
+                        <section class="iv-suite">
+                            <div class="card-top">
+                                <div>
+                                    <span class="card-label">Nursing Tool</span>
+                                    <h3>ინტრავენური გადასხმის კალკულატორი</h3>
+                                </div>
+                                <p class="muted">პამპის სიჩქარე, წვეთოვანი და სიჩქარე/დრო/მოცულობის გადათვლები ერთ სივრცეში.</p>
+                            </div>
+
+                            <div class="iv-tabs" role="tablist" aria-label="IV კალკულატორის კატეგორიები">
+                                <button class="iv-tab active" type="button" onclick="switchIvTab(0)" aria-selected="true">მკგ/კგ/წთ → პამპი</button>
+                                <button class="iv-tab" type="button" onclick="switchIvTab(1)" aria-selected="false">წვეთოვანი</button>
+                                <button class="iv-tab" type="button" onclick="switchIvTab(2)" aria-selected="false">სიჩქარე / დრო</button>
+                            </div>
+
+                            <div class="iv-panel active" id="iv-panel-0">
+                                <div class="iv-subcard">
+                                    <div class="iv-card-title">პამპის სიჩქარე — მლ/სთ</div>
+                                    <div class="iv-formula-box">სიჩქარე (მლ/სთ) = დოზა × წონა × 60 ÷ K</div>
+
+                                    <div class="iv-info-chips">
+                                        <span class="iv-chip">დოპამინი</span>
+                                        <span class="iv-chip">დობუტამინი</span>
+                                        <span class="iv-chip">ნიტროპრუსიდი</span>
+                                        <span class="iv-chip">ეპინეფრინი</span>
+                                        <span class="iv-chip">კორდარონი</span>
+                                    </div>
+
+                                    <div class="iv-field">
+                                        <label><strong>დოზა</strong> — ექიმის დანიშნულება</label>
+                                        <div class="iv-input-row">
+                                            <input type="number" id="p1_dose" placeholder="5" step="0.1" min="0">
+                                            <select id="p1_dose_unit">
+                                                <option value="mcg">მკგ/კგ/წთ</option>
+                                                <option value="mg">მგ/კგ/წთ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="iv-field">
+                                        <label><strong>პაციენტის წონა</strong></label>
+                                        <div class="iv-input-row">
+                                            <input type="number" id="p1_weight" placeholder="70" step="0.1" min="0">
+                                            <div class="iv-unit-tag">კგ</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="iv-divider"></div>
+
+                                    <div class="iv-field">
+                                        <label><strong>K კოეფიციენტი</strong> — კონცენტრაცია 1 მლ-ში</label>
+                                        <div class="iv-input-row">
+                                            <input type="number" id="p1_K" placeholder="3200" step="0.1" min="0">
+                                            <select id="p1_K_unit">
+                                                <option value="mcg">მკგ/მლ</option>
+                                                <option value="mg">მგ/მლ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button class="iv-calc-btn" type="button" onclick="calcIvPump()">გამოთვლა</button>
+
+                                    <div class="iv-result-box" id="p1_result" aria-live="polite">
+                                        <div class="iv-result-label">პამპის სიჩქარე</div>
+                                        <div class="iv-result-value" id="p1_val">—</div>
+                                        <div class="iv-result-unit">მლ / სთ</div>
+                                        <div id="p1_steps"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="iv-panel" id="iv-panel-1">
+                                <div class="iv-subcard">
+                                    <div class="iv-card-title">წვეთოვანი — წვ/წთ</div>
+                                    <div class="iv-formula-box">წვ/წთ = დოზა × წონა ÷ K × დროპ-ფაქტორი</div>
+
+                                    <div class="iv-field">
+                                        <label><strong>დოზა</strong> — ექიმის დანიშნულება</label>
+                                        <div class="iv-input-row">
+                                            <input type="number" id="p2_dose" placeholder="5" step="0.1" min="0">
+                                            <select id="p2_dose_unit">
+                                                <option value="mcg">მკგ/კგ/წთ</option>
+                                                <option value="mg">მგ/კგ/წთ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="iv-field">
+                                        <label><strong>პაციენტის წონა</strong></label>
+                                        <div class="iv-input-row">
+                                            <input type="number" id="p2_weight" placeholder="70" step="0.1" min="0">
+                                            <div class="iv-unit-tag">კგ</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="iv-field">
+                                        <label><strong>დროპ ფაქტორი</strong> — სისტემის ტიპი</label>
+                                        <div class="iv-input-row">
+                                            <select id="p2_drop_factor">
+                                                <option value="60">60 წვ/მლ — მიკრო</option>
+                                                <option value="20">20 წვ/მლ — სტანდარტი</option>
+                                                <option value="15">15 წვ/მლ</option>
+                                                <option value="25">25 წვ/მლ</option>
+                                                <option value="custom">სხვა...</option>
+                                            </select>
+                                            <input type="number" id="p2_drop_custom" placeholder="60" style="display:none; max-width:120px;" min="1">
+                                            <div class="iv-unit-tag" id="p2_drop_unit_tag">წვ/მლ</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="iv-divider"></div>
+
+                                    <div class="iv-field">
+                                        <label><strong>K კოეფიციენტი</strong> — კონცენტრაცია 1 მლ-ში</label>
+                                        <div class="iv-input-row">
+                                            <input type="number" id="p2_K" placeholder="1600" step="0.1" min="0">
+                                            <select id="p2_K_unit">
+                                                <option value="mcg">მკგ/მლ</option>
+                                                <option value="mg">მგ/მლ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button class="iv-calc-btn" type="button" onclick="calcIvDrop()">გამოთვლა</button>
+
+                                    <div class="iv-result-box" id="p2_result" aria-live="polite">
+                                        <div class="iv-result-label">სიჩქარე წვეთოვანზე</div>
+                                        <div class="iv-result-value" id="p2_val">—</div>
+                                        <div class="iv-result-unit">წვეთი / წუთი</div>
+                                        <div id="p2_steps"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="iv-panel" id="iv-panel-2">
+                                <div class="iv-subcard">
+                                    <div class="iv-card-title">სიჩქარე · დრო · მოცულობა</div>
+
+                                    <div class="iv-field">
+                                        <label>რა გინდა გამოთვალო?</label>
+                                        <select id="p3_mode" onchange="updateIvMode()">
+                                            <option value="rate">სიჩქარე (მლ/სთ) — ვიცი მოცულობა და დრო</option>
+                                            <option value="time">დრო (სთ) — ვიცი მოცულობა და სიჩქარე</option>
+                                            <option value="vol">მოცულობა (მლ) — ვიცი სიჩქარე და დრო</option>
+                                            <option value="drop_simple">წვ/წთ — მოცულობა + დრო + დროპ-ფაქტორი</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="iv-divider"></div>
+                                    <div id="p3_fields"></div>
+
+                                    <button class="iv-calc-btn" type="button" onclick="calcIvSimple()">გამოთვლა</button>
+
+                                    <div class="iv-result-box" id="p3_result" aria-live="polite">
+                                        <div class="iv-result-label" id="p3_rlabel">შედეგი</div>
+                                        <div class="iv-result-value" id="p3_val">—</div>
+                                        <div class="iv-result-unit" id="p3_runit"></div>
+                                        <div id="p3_steps"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+
+            <p class="foot">© 2025 iMed Calc • შექმნილია სამედიცინო პერსონალის ყოველდღიური მუშაობის გასამარტივებლად</p>
+        </div>
+    </main>
+
+    <script>
+        function syncThemeUi(theme) {
+            const themeText = document.getElementById('theme-text');
+            const themeButton = document.getElementById('theme-toggle');
+            const label = theme === 'dark' ? 'ღია თემა' : 'მუქი თემა';
+            if (themeText) themeText.textContent = label;
+            if (themeButton) themeButton.setAttribute('aria-label', label);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme') || 'light';
+            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', nextTheme);
+            localStorage.setItem('theme', nextTheme);
+            syncThemeUi(nextTheme);
+        }
+
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            syncThemeUi(savedTheme);
+        }
+
+        function setActiveCalculator(panelId, shouldScroll) {
+            document.querySelectorAll('.calc-panel').forEach((panel) => panel.classList.remove('open'));
+            document.querySelectorAll('.nav-pill').forEach((button) => button.classList.remove('active'));
+
+            if (!panelId) return;
+
+            const target = document.getElementById(panelId);
+            const trigger = document.querySelector(`.nav-pill[data-target="${panelId}"]`);
+            if (!target || target.hidden || !trigger || trigger.hidden) return;
+
+            target.classList.add('open');
+            trigger.classList.add('active');
+
+            if (shouldScroll) {
+                requestAnimationFrame(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
             }
         }
 
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="brand">
-                <div class="logo">
-                    <svg width="250" height="270" viewBox="0 0 250 270" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M112.551 2.39243C116.516 -0.198274 121.731 -0.198274 125.696 2.39243L237.525 69.5772C241.49 72.1679 243.896 76.5332 243.896 81.2829V206.511C243.896 211.261 241.49 215.626 237.525 218.217L125.696 285.402C121.731 287.992 116.516 287.992 112.551 285.402L0.721497 218.217C-3.24357 215.626 -5.64923 211.261 -5.64923 206.511V81.2829C-5.64923 76.5332 -3.24357 72.1679 0.721497 69.5772L112.551 2.39243Z" fill="#141846"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M125.696 2.39243C121.731 -0.198274 116.516 -0.198274 112.551 2.39243L0.721497 69.5772C-3.24357 72.1679 -5.64923 76.5332 -5.64923 81.2829V206.511C-5.64923 211.261 -3.24357 215.626 0.721497 218.217L112.551 285.402C116.516 287.992 121.731 287.992 125.696 285.402L237.525 218.217C241.49 215.626 243.896 211.261 243.896 206.511V81.2829C243.896 76.5332 241.49 72.1679 237.525 69.5772L125.696 2.39243Z" fill="url(#paint0_linear_85_16)"/>
-                        <rect x="120.304" y="143.208" width="121.848" height="126.31" fill="#FFFFFF"/>
-                        <path d="M172.96 161.432V167.315H176.657V161.432H172.96ZM168.125 186.745C168.125 187.359 168.614 187.848 169.229 187.848H179.916C180.531 187.848 181.02 187.359 181.02 186.745V173.203H168.125V186.745Z" fill="#141846"/>
-                        <path d="M129.894 152.028V157.912H133.591V152.028H129.894Z" fill="#141846"/>
-                        <path d="M129.894 167.315V173.199H133.591V167.315H129.894Z" fill="#141846"/>
-                        <path d="M129.894 182.603V188.487H133.591V182.603H129.894Z" fill="#141846"/>
-                        <path d="M129.894 197.89V203.774H133.591V197.89H129.894Z" fill="#141846"/>
-                        <path d="M129.894 213.178V219.062H133.591V213.178H129.894Z" fill="#141846"/>
-                        <path d="M129.894 228.465V234.349H133.591V228.465H129.894Z" fill="#141846"/>
-                        <path d="M129.894 243.753V249.637H133.591V243.753H129.894Z" fill="#141846"/>
-                        <path d="M129.894 259.041V264.925H133.591V259.041H129.894Z" fill="#141846"/>
-                        <path d="M137.601 264.925V259.041H141.298V264.925H137.601Z" fill="#141846"/>
-                        <path d="M145.308 264.925V259.041H149.005V264.925H145.308Z" fill="#141846"/>
-                        <path d="M153.015 264.925V259.041H156.712V264.925H153.015Z" fill="#141846"/>
-                        <path d="M160.723 264.925V259.041H164.42V264.925H160.723Z" fill="#141846"/>
-                        <path d="M168.43 264.925V259.041H172.127V264.925H168.43Z" fill="#141846"/>
-                        <path d="M176.137 264.925V259.041H179.834V264.925H176.137Z" fill="#141846"/>
-                        <path d="M183.844 264.925V259.041H187.541V264.925H183.844Z" fill="#141846"/>
-                        <path d="M191.551 264.925V259.041H195.248V264.925H191.551Z" fill="#141846"/>
-                        <path d="M199.258 264.925V259.041H202.955V264.925H199.258Z" fill="#141846"/>
-                        <path d="M206.966 264.925V259.041H210.663V264.925H206.966Z" fill="#141846"/>
-                        <path d="M214.673 264.925V259.041H218.37V264.925H214.673Z" fill="#141846"/>
-                        <path d="M129.894 136.74V142.624H133.591V136.74H129.894Z" fill="#141846"/>
-                        <path d="M129.894 121.452V127.336H133.591V121.452H129.894Z" fill="#141846"/>
-                        <path d="M129.894 106.164V112.048H133.591V106.164H129.894Z" fill="#141846"/>
-                        <path d="M129.894 90.876V96.7601H133.591V90.876H129.894Z" fill="#141846"/>
-                        <path d="M129.894 75.5878V81.4719H133.591V75.5878H129.894Z" fill="#141846"/>
-                        <path d="M129.894 60.3005V66.1846H133.591V60.3005H129.894Z" fill="#141846"/>
-                        <path d="M129.894 45.0132V50.8973H133.591V45.0132H129.894Z" fill="#141846"/>
-                        <path d="M129.894 29.7259V35.61H133.591V29.7259H129.894Z" fill="#141846"/>
-                        <path d="M129.894 14.4386V20.3227H133.591V14.4386H129.894Z" fill="#141846"/>
-                        <path d="M137.601 20.3227V14.4386H141.298V20.3227H137.601Z" fill="#141846"/>
-                        <path d="M145.308 20.3227V14.4386H149.005V20.3227H145.308Z" fill="#141846"/>
-                        <path d="M153.015 20.3227V14.4386H156.712V20.3227H153.015Z" fill="#141846"/>
-                        <path d="M160.723 20.3227V14.4386H164.42V20.3227H160.723Z" fill="#141846"/>
-                        <path d="M168.43 20.3227V14.4386H172.127V20.3227H168.43Z" fill="#141846"/>
-                        <path d="M176.137 20.3227V14.4386H179.834V20.3227H176.137Z" fill="#141846"/>
-                        <path d="M183.844 20.3227V14.4386H187.541V20.3227H183.844Z" fill="#141846"/>
-                        <path d="M191.551 20.3227V14.4386H195.248V20.3227H191.551Z" fill="#141846"/>
-                        <path d="M199.258 20.3227V14.4386H202.955V20.3227H199.258Z" fill="#141846"/>
-                        <path d="M206.966 20.3227V14.4386H210.663V20.3227H206.966Z" fill="#141846"/>
-                        <path d="M214.673 20.3227V14.4386H218.37V20.3227H214.673Z" fill="#141846"/>
-                        <path d="M129.894 136.74V142.624H133.591V136.74H129.894Z" fill="#141846"/>
-                        <path d="M129.894 121.452V127.336H133.591V121.452H129.894Z" fill="#141846"/>
-                        <path d="M129.894 106.164V112.048H133.591V106.164H129.894Z" fill="#141846"/>
-                        <path d="M129.894 90.876V96.7601H133.591V90.876H129.894Z" fill="#141846"/>
-                        <path d="M129.894 75.5878V81.4719H133.591V75.5878H129.894Z" fill="#141846"/>
-                        <path d="M129.894 60.3005V66.1846H133.591V60.3005H129.894Z" fill="#141846"/>
-                        <path d="M129.894 45.0132V50.8973H133.591V45.0132H129.894Z" fill="#141846"/>
-                        <path d="M129.894 29.7259V35.61H133.591V29.7259H129.894Z" fill="#141846"/>
-                        <path d="M129.894 14.4386V20.3227H133.591V14.4386H129.894Z" fill="#141846"/>
-                        <path d="M137.601 20.3227V14.4386H141.298V20.3227H137.601Z" fill="#141846"/>
-                        <path d="M145.308 20.3227V14.4386H149.005V20.3227H145.308Z" fill="#141846"/>
-                        <path d="M153.015 20.3227V14.4386H156.712V20.3227H153.015Z" fill="#141846"/>
-                        <path d="M160.723 20.3227V14.4386H164.42V20.3227H160.723Z" fill="#141846"/>
-                        <path d="M168.43 20.3227V14.4386H172.127V20.3227H168.43Z" fill="#141846"/>
-                        <path d="M176.137 20.3227V14.4386H179.834V20.3227H176.137Z" fill="#141846"/>
-                        <path d="M183.844 20.3227V14.4386H187.541V20.3227H183.844Z" fill="#141846"/>
-                        <path d="M191.551 20.3227V14.4386H195.248V20.3227H191.551Z" fill="#141846"/>
-                        <path d="M199.258 20.3227V14.4386H202.955V20.3227H199.258Z" fill="#141846"/>
-                        <path d="M206.966 20.3227V14.4386H210.663V20.3227H206.966Z" fill="#141846"/>
-                        <path d="M214.673 20.3227V14.4386H218.37V20.3227H214.673Z" fill="#141846"/>
-                    </svg>
-                </div>
-                <div>
-                    <h1>IMEDCalc</h1>
-                    <p>სამედიცინო კალკულატორები</p>
-                </div>
-            </div>
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/></svg>
-                <span id="theme-text">ღია თემა</span>
-            </button>
-        </header>
-        <p class="disclaimer">დამხმარე ხელსაწყო. სავალდებულოა შედეგების გადამოწმება კლინიკურ პროტოკოლებთან.</p>
-        <section class="iv-suite" aria-labelledby="iv-suite-title">
-            <div class="iv-header">
-                <div class="iv-badge">nursing tool · iv infusion</div>
-                <h2 id="iv-suite-title">ინტრავენური გადასხმის კალკულატორი</h2>
-                <p class="iv-subtitle">მარტივი გამოთვლები ექთნებისთვის</p>
-            </div>
+        function toggleCalculator(panelId) {
+            const target = document.getElementById(panelId);
+            if (!target || target.hidden) return;
+            const isOpen = target.classList.contains('open');
+            setActiveCalculator(isOpen ? null : panelId, !isOpen);
+        }
 
-            <div class="iv-tabs" role="tablist" aria-label="IV კალკულატორის კატეგორიები">
-                <button class="iv-tab active" type="button" onclick="switchIvTab(0)" aria-selected="true">💊 მკგ/კგ/წთ → პამპი</button>
-                <button class="iv-tab" type="button" onclick="switchIvTab(1)" aria-selected="false">💧 წვეთოვანი</button>
-                <button class="iv-tab" type="button" onclick="switchIvTab(2)" aria-selected="false">⚗️ სიჩქარე/დრო</button>
-            </div>
+        function filterCalculators() {
+            const query = (document.getElementById('calculator-search').value || '').trim().toLowerCase();
+            let firstVisibleTarget = null;
 
-            <div class="iv-panels">
-                <div class="iv-panel active" id="iv-panel-0">
-                    <div class="iv-card">
-                        <div class="iv-card-title">პამპის სიჩქარე — მლ/სთ</div>
-                        <div class="iv-formula-box">
-                            სიჩქარე (მლ/სთ) = დოზა × წონა × 60 ÷ K
-                        </div>
+            document.querySelectorAll('.nav-pill').forEach((button) => {
+                const match = !query || button.dataset.search.includes(query);
+                button.hidden = !match;
 
-                        <div class="iv-info-chips">
-                            <span class="iv-chip">დოპამინი</span>
-                            <span class="iv-chip">დობუტამინი</span>
-                            <span class="iv-chip">ნიტროპრუსიდი</span>
-                            <span class="iv-chip">ეპინეფრინი</span>
-                            <span class="iv-chip">კორდარონი</span>
-                        </div>
+                const panel = document.getElementById(button.dataset.target);
+                if (panel) panel.hidden = !match;
 
-                        <div class="iv-field">
-                            <label><strong>დოზა</strong> — ექიმის დანიშნულება</label>
-                            <div class="iv-input-row">
-                                <input type="number" id="p1_dose" placeholder="5" step="0.1" min="0">
-                                <select id="p1_dose_unit">
-                                    <option value="mcg">მკგ/კგ/წთ</option>
-                                    <option value="mg">მგ/კგ/წთ</option>
-                                </select>
-                            </div>
-                        </div>
+                if (match && !firstVisibleTarget) {
+                    firstVisibleTarget = button.dataset.target;
+                }
+            });
 
-                        <div class="iv-field">
-                            <label><strong>პაციენტის წონა</strong></label>
-                            <div class="iv-input-row">
-                                <input type="number" id="p1_weight" placeholder="70" step="0.1" min="0">
-                                <div class="iv-unit-tag">კგ</div>
-                            </div>
-                        </div>
+            const activePanel = document.querySelector('.calc-panel.open');
+            if (!firstVisibleTarget) {
+                setActiveCalculator(null, false);
+            } else if (!activePanel || activePanel.hidden) {
+                setActiveCalculator(firstVisibleTarget, false);
+            }
 
-                        <div class="iv-divider"></div>
+            const emptyState = document.getElementById('search-empty');
+            if (emptyState) emptyState.hidden = !!firstVisibleTarget;
+        }
 
-                        <div class="iv-field">
-                            <label><strong>K კოეფიციენტი</strong> — კონცენტრაცია 1 მლ-ში</label>
-                            <div class="iv-input-row">
-                                <input type="number" id="p1_K" placeholder="3200" step="0.1" min="0">
-                                <select id="p1_K_unit">
-                                    <option value="mcg">მკგ/მლ</option>
-                                    <option value="mg">მგ/მლ</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <button class="iv-calc-btn" type="button" onclick="calcIvPump()">გამოთვლა →</button>
-
-                        <div class="iv-result-box" id="p1_result" aria-live="polite">
-                            <div class="iv-result-label">პამპის სიჩქარე</div>
-                            <div class="iv-result-value" id="p1_val">—</div>
-                            <div class="iv-result-unit">მლ / სთ</div>
-                            <div id="p1_steps"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="iv-panel" id="iv-panel-1">
-                    <div class="iv-card">
-                        <div class="iv-card-title">წვეთოვანი — წვ/წთ</div>
-                        <div class="iv-formula-box">
-                            წვ/წთ = დოზა × წონა ÷ K × დროპ-ფაქტორი
-                        </div>
-
-                        <div class="iv-field">
-                            <label><strong>დოზა</strong> — ექიმის დანიშნულება</label>
-                            <div class="iv-input-row">
-                                <input type="number" id="p2_dose" placeholder="5" step="0.1" min="0">
-                                <select id="p2_dose_unit">
-                                    <option value="mcg">მკგ/კგ/წთ</option>
-                                    <option value="mg">მგ/კგ/წთ</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="iv-field">
-                            <label><strong>პაციენტის წონა</strong></label>
-                            <div class="iv-input-row">
-                                <input type="number" id="p2_weight" placeholder="70" step="0.1" min="0">
-                                <div class="iv-unit-tag">კგ</div>
-                            </div>
-                        </div>
-
-                        <div class="iv-field">
-                            <label><strong>დროპ ფაქტორი</strong> — სისტემის ტიპი</label>
-                            <div class="iv-input-row">
-                                <select id="p2_drop_factor">
-                                    <option value="60">60 წვ/მლ — მიკრო</option>
-                                    <option value="20">20 წვ/მლ — სტანდარტი</option>
-                                    <option value="15">15 წვ/მლ</option>
-                                    <option value="25">25 წვ/მლ</option>
-                                    <option value="custom">სხვა...</option>
-                                </select>
-                                <input type="number" id="p2_drop_custom" placeholder="60" style="display:none; max-width:100px;" min="1">
-                                <div class="iv-unit-tag" id="p2_drop_unit_tag">წვ/მლ</div>
-                            </div>
-                        </div>
-
-                        <div class="iv-divider"></div>
-
-                        <div class="iv-field">
-                            <label><strong>K კოეფიციენტი</strong> — კონცენტრაცია 1 მლ-ში</label>
-                            <div class="iv-input-row">
-                                <input type="number" id="p2_K" placeholder="1600" step="0.1" min="0">
-                                <select id="p2_K_unit">
-                                    <option value="mcg">მკგ/მლ</option>
-                                    <option value="mg">მგ/მლ</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <button class="iv-calc-btn" type="button" onclick="calcIvDrop()">გამოთვლა →</button>
-
-                        <div class="iv-result-box" id="p2_result" aria-live="polite">
-                            <div class="iv-result-label">სიჩქარე წვეთოვანზე</div>
-                            <div class="iv-result-value" id="p2_val">—</div>
-                            <div class="iv-result-unit">წვეთი / წუთი</div>
-                            <div id="p2_steps"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="iv-panel" id="iv-panel-2">
-                    <div class="iv-card">
-                        <div class="iv-card-title">სიჩქარე · დრო · მოცულობა</div>
-
-                        <div class="iv-field">
-                            <label>რა გინდა გამოთვალო?</label>
-                            <select id="p3_mode" onchange="updateIvMode()">
-                                <option value="rate">სიჩქარე (მლ/სთ) — ვიცი მოცულობა და დრო</option>
-                                <option value="time">დრო (სთ) — ვიცი მოცულობა და სიჩქარე</option>
-                                <option value="vol">მოცულობა (მლ) — ვიცი სიჩქარე და დრო</option>
-                                <option value="drop_simple">წვ/წთ — მოცულობა + დრო + დროპ-ფაქტორი</option>
-                            </select>
-                        </div>
-
-                        <div class="iv-divider"></div>
-
-                        <div id="p3_fields"></div>
-
-                        <button class="iv-calc-btn" type="button" onclick="calcIvSimple()">გამოთვლა →</button>
-
-                        <div class="iv-result-box" id="p3_result" aria-live="polite">
-                            <div class="iv-result-label" id="p3_rlabel">შედეგი</div>
-                            <div class="iv-result-value" id="p3_val">—</div>
-                            <div class="iv-result-unit" id="p3_runit"></div>
-                            <div id="p3_steps"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div class="grid" id="grid">
-            <section class="card" id="bicarb-card">
-                <h2>სოდა ბუფერი — გადასხმის გამოთვლა <span class="tag">ფორმულა</span></h2>
-                <div class="formula">წონა × BE(act) × 2 × 0.3</div>
-                <p class="muted">შეიყვანეთ პაციენტის მონაცემები. შედეგი გამოისახება ქვემოთ.</p>
-                <div class="row">
-                    <div>
-                        <label for="bicarb-weight">პაციენტის წონა (კგ)</label>
-                        <input id="bicarb-weight" type="number" min="0" step="0.1" placeholder="მაგ. 70" />
-                    </div>
-                    <div>
-                        <label for="bicarb-be">BE(act)</label>
-                        <input id="bicarb-be" type="number" step="0.1" placeholder="მაგ. -8" />
-                    </div>
-                </div>
-                <div class="btns">
-                    <button onclick="calcBicarb()">გამოთვლა</button>
-                    <button class="ghost" onclick="resetCard('bicarb-card')">გასუფთავება</button>
-                    <button class="ghost" onclick="copyResult('bicarb-result')">კოპირება</button>
-                </div>
-                <div id="bicarb-result" class="result" aria-live="polite">შედეგი: —</div>
-                <div class="note">შენიშვნა: ერთეულების ინტერპრეტაცია შეადარეთ თქვენს პროტოკოლს/ხსნარის კონცენტრაციას.</div>
-            </section>
-            <section class="card" id="potassium-card">
-                <h2>კალიუმის გადასხმა <span class="chip">ნელა გადასხმა</span></h2>
-                <div class="formula">წონა × 1.74 ÷ კალიუმის მაჩვენებელი</div>
-                <p class="muted">ფორმულა ითვლის საჭირო ოდენობას მითითებული დონის შესაბამისად.</p>
-                <div class="row">
-                    <div>
-                        <label for="k-weight">პაციენტის წონა (კგ)</label>
-                        <input id="k-weight" type="number" min="0" step="0.1" placeholder="მაგ. 70" />
-                    </div>
-                    <div>
-                        <label for="k-level">კალიუმის მაჩვენებელი (mmol/L)</label>
-                        <input id="k-level" type="number" min="0.1" step="0.1" placeholder="მაგ. 3.0" />
-                    </div>
-                </div>
-                <div class="btns">
-                    <button onclick="calcPotassium()">გამოთვლა</button>
-                    <button class="ghost" onclick="resetCard('potassium-card')">გასუფთავება</button>
-                    <button class="ghost" onclick="copyResult('potassium-result')">კოპირება</button>
-                </div>
-                <div id="potassium-result" class="result" aria-live="polite">შედეგი: —</div>
-                <div class="note success">აუცილებლად <strong>ნელა</strong> გადაისხას ინსტიტუციური წესების შესაბამისად.</div>
-            </section>
-            <section class="card" id="kcoef-card">
-                <h2>K კოეფიციენტი</h2>
-                <div class="formula">მედიკამენტის მილიგრამი × 1000 ÷ ხსნარის რაოდენობა</div>
-                <p class="muted">შედეგი პრაქტიკულად უდრის კონცენტრაციას <em>(მკგ/მლ)</em>, თუ მოცულობა შეყვანილია მლ-ში.</p>
-                <div class="row">
-                    <div>
-                        <label for="kcoef-mg">მედიკამენტის რაოდენობა (mg)</label>
-                        <input id="kcoef-mg" type="number" min="0" step="0.1" placeholder="მაგ. 500" />
-                    </div>
-                    <div>
-                        <label for="kcoef-vol">ხსნარის რაოდენობა (მლ)</label>
-                        <input id="kcoef-vol" type="number" min="0.1" step="0.1" placeholder="მაგ. 100" />
-                    </div>
-                </div>
-                <div class="btns">
-                    <button onclick="calcKcoef()">გამოთვლა</button>
-                    <button class="ghost" onclick="resetCard('kcoef-card')">გასუფთავება</button>
-                    <button class="ghost" onclick="copyResult('kcoef-result')">კოპირება</button>
-                </div>
-                <div id="kcoef-result" class="result" aria-live="polite">შედეგი: —</div>
-            </section>
-            <section class="card" id="solu-card">
-                <h2>სოლუმედროლი — დამრტყმელი დოზა</h2>
-                <div class="formula">30 mg/kg — გადასხმა 15 წუთში</div>
-                <p class="muted">შეიყვანეთ მხოლოდ პაციენტის წონა. სისტემა გამოთვლის დოზას.</p>
-                <div class="row">
-                    <div>
-                        <label for="solu-weight">პაციენტის წონა (კგ)</label>
-                        <input id="solu-weight" type="number" min="0" step="0.1" placeholder="მაგ. 70" />
-                    </div>
-                    <div>
-                        <label for="solu-dummy">დოზირების ფურცელი</label>
-                        <input id="solu-dummy" type="text" placeholder="არასავალდებულო შენიშვნა"/>
-                    </div>
-                </div>
-                <div class="btns">
-                    <button onclick="calcSolu()">გამოთვლა</button>
-                    <button class="ghost" onclick="resetCard('solu-card')">გასუფთავება</button>
-                    <button class="ghost" onclick="copyResult('solu-result')">კოპირება</button>
-                </div>
-                <div id="solu-result" class="result" aria-live="polite">შედეგი: —</div>
-                <div class="note success">რეკომენდაცია: პამპი დააყენეთ <strong>200 მლ/სთ</strong>-ზე. გადასხმა უნდა დასრულდეს ~15 წუთში.</div>
-            </section>
-        </div>
-        <p class="foot">© 2025 IMEDCalc • შექმნილია სამედიცინო პერსონალის გასამარტივებლად</p>
-    </div>
-
-    <script>
         function switchIvTab(i) {
             document.querySelectorAll('.iv-tab').forEach((tab, index) => {
-                const isActive = i === index;
+                const isActive = index === i;
                 tab.classList.toggle('active', isActive);
                 tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
             });
+
             document.querySelectorAll('.iv-panel').forEach((panel, index) => {
-                panel.classList.toggle('active', i === index);
+                panel.classList.toggle('active', index === i);
             });
         }
 
@@ -993,11 +1467,6 @@
             if (unit === 'mg') return val * 1000;
             if (unit === 'g') return val * 1000000;
             return val;
-        }
-
-        function calcIvK(drugAmt, drugUnit, vol) {
-            const mcgTotal = toIvMcg(drugAmt, drugUnit);
-            return mcgTotal / vol;
         }
 
         function calcIvPump() {
@@ -1024,7 +1493,7 @@
             document.getElementById('p1_val').textContent = rateMlHr.toFixed(2);
             document.getElementById('p1_steps').innerHTML = `
                 <div class="iv-result-steps">
-                    <div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>
+                    <div class="result-label">გამოთვლის ნაბიჯები</div>
                     <div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">K = <span>${K.toFixed(2)} მკგ/მლ</span></div></div>
                     <div class="iv-step"><div class="iv-step-num">2</div><div class="iv-step-text">სიჩქარე = ${doseMcg} × ${weight}კგ × 60 ÷ ${K.toFixed(2)} = <span>${rateMlHr.toFixed(2)} მლ/სთ</span></div></div>
                 </div>`;
@@ -1059,7 +1528,7 @@
             document.getElementById('p2_val').textContent = Math.round(dropsMin);
             document.getElementById('p2_steps').innerHTML = `
                 <div class="iv-result-steps">
-                    <div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>
+                    <div class="result-label">გამოთვლის ნაბიჯები</div>
                     <div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">K = <span>${K.toFixed(2)} მკგ/მლ</span></div></div>
                     <div class="iv-step"><div class="iv-step-num">2</div><div class="iv-step-text">მლ/წთ = ${doseMcg} × ${weight}კგ ÷ ${K.toFixed(2)} = <span>${mlMin.toFixed(4)} მლ/წთ</span></div></div>
                     <div class="iv-step"><div class="iv-step-num">3</div><div class="iv-step-text">წვ/წთ = ${mlMin.toFixed(4)} × ${dropFactor} = <span>${dropsMin.toFixed(1)} ≈ ${Math.round(dropsMin)} წვ/წთ</span></div></div>
@@ -1072,7 +1541,8 @@
             document.getElementById('p3_result').className = 'iv-result-box';
 
             const timeField = `
-                <div class="iv-field"><label><strong>დრო</strong></label>
+                <div class="iv-field">
+                    <label><strong>დრო</strong></label>
                     <div class="iv-input-row">
                         <input type="number" id="s_time" placeholder="6" step="1" min="0">
                         <select id="s_time_unit" style="flex:0 0 auto;width:auto;">
@@ -1084,28 +1554,49 @@
 
             const fieldTemplates = {
                 rate: `
-                    <div class="iv-field"><label><strong>მოცულობა</strong></label>
-                        <div class="iv-input-row"><input type="number" id="s_vol" placeholder="1000" min="0"><div class="iv-unit-tag">მლ</div></div>
+                    <div class="iv-field">
+                        <label><strong>მოცულობა</strong></label>
+                        <div class="iv-input-row">
+                            <input type="number" id="s_vol" placeholder="1000" min="0">
+                            <div class="iv-unit-tag">მლ</div>
+                        </div>
                     </div>
                     ${timeField}`,
                 time: `
-                    <div class="iv-field"><label><strong>მოცულობა</strong></label>
-                        <div class="iv-input-row"><input type="number" id="s_vol" placeholder="750" min="0"><div class="iv-unit-tag">მლ</div></div>
+                    <div class="iv-field">
+                        <label><strong>მოცულობა</strong></label>
+                        <div class="iv-input-row">
+                            <input type="number" id="s_vol" placeholder="750" min="0">
+                            <div class="iv-unit-tag">მლ</div>
+                        </div>
                     </div>
-                    <div class="iv-field"><label><strong>სიჩქარე</strong></label>
-                        <div class="iv-input-row"><input type="number" id="s_rate" placeholder="25" min="0"><div class="iv-unit-tag">მლ/სთ</div></div>
+                    <div class="iv-field">
+                        <label><strong>სიჩქარე</strong></label>
+                        <div class="iv-input-row">
+                            <input type="number" id="s_rate" placeholder="25" min="0">
+                            <div class="iv-unit-tag">მლ/სთ</div>
+                        </div>
                     </div>`,
                 vol: `
-                    <div class="iv-field"><label><strong>სიჩქარე</strong></label>
-                        <div class="iv-input-row"><input type="number" id="s_rate" placeholder="50" min="0"><div class="iv-unit-tag">მლ/სთ</div></div>
+                    <div class="iv-field">
+                        <label><strong>სიჩქარე</strong></label>
+                        <div class="iv-input-row">
+                            <input type="number" id="s_rate" placeholder="50" min="0">
+                            <div class="iv-unit-tag">მლ/სთ</div>
+                        </div>
                     </div>
                     ${timeField}`,
                 drop_simple: `
-                    <div class="iv-field"><label><strong>მოცულობა</strong></label>
-                        <div class="iv-input-row"><input type="number" id="s_vol" placeholder="350" min="0"><div class="iv-unit-tag">მლ</div></div>
+                    <div class="iv-field">
+                        <label><strong>მოცულობა</strong></label>
+                        <div class="iv-input-row">
+                            <input type="number" id="s_vol" placeholder="350" min="0">
+                            <div class="iv-unit-tag">მლ</div>
+                        </div>
                     </div>
                     ${timeField}
-                    <div class="iv-field"><label><strong>დროპ ფაქტორი</strong></label>
+                    <div class="iv-field">
+                        <label><strong>დროპ ფაქტორი</strong></label>
                         <div class="iv-input-row">
                             <select id="s_df">
                                 <option value="60">60 წვ/მლ — მიკრო</option>
@@ -1128,6 +1619,7 @@
                 const el = document.getElementById(id);
                 return el ? parseFloat(el.value) : null;
             };
+
             const gStr = (id) => {
                 const el = document.getElementById(id);
                 return el ? el.value : null;
@@ -1139,13 +1631,17 @@
                 if (isNaN(t) || t === null) return null;
                 return unit === 'm' ? t / 60 : t;
             };
+
             const getTimeLabel = () => {
                 const t = g('s_time');
                 const unit = gStr('s_time_unit') || 'h';
                 return unit === 'm' ? `${t}წთ` : `${t}სთ`;
             };
 
-            let result, label, unit, steps = '';
+            let result;
+            let label;
+            let unit;
+            let steps = '';
 
             if (mode === 'rate') {
                 const vol = g('s_vol');
@@ -1166,10 +1662,10 @@
                 const m = Math.round((result - h) * 60);
                 steps = `<div class="iv-step"><div class="iv-step-num">1</div><div class="iv-step-text">${vol}მლ ÷ ${rate}მლ/სთ = <span>${result.toFixed(2)} სთ → ${h} საათი ${m} წუთი</span></div></div>`;
                 document.getElementById('p3_result').className = 'iv-result-box show';
-                document.getElementById('p3_rlabel').textContent = label || 'დრო';
+                document.getElementById('p3_rlabel').textContent = label;
                 document.getElementById('p3_val').textContent = `${h}სთ ${m}წთ`;
                 document.getElementById('p3_runit').textContent = '';
-                document.getElementById('p3_steps').innerHTML = `<div class="iv-result-steps"><div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>${steps}</div>`;
+                document.getElementById('p3_steps').innerHTML = `<div class="iv-result-steps"><div class="result-label">გამოთვლის ნაბიჯები</div>${steps}</div>`;
                 return;
             } else if (mode === 'vol') {
                 const rate = g('s_rate');
@@ -1198,7 +1694,7 @@
             document.getElementById('p3_rlabel').textContent = label;
             document.getElementById('p3_val').textContent = typeof result === 'number' ? (Number.isInteger(result) ? result : result.toFixed(2)) : '—';
             document.getElementById('p3_runit').textContent = unit;
-            document.getElementById('p3_steps').innerHTML = `<div class="iv-result-steps"><div style="font-size:12px;color:var(--iv-muted);font-family:var(--iv-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">გამოთვლის ნაბიჯები</div>${steps}</div>`;
+            document.getElementById('p3_steps').innerHTML = `<div class="iv-result-steps"><div class="result-label">გამოთვლის ნაბიჯები</div>${steps}</div>`;
         }
 
         function showIvSimpleError() {
@@ -1208,37 +1704,6 @@
             document.getElementById('p3_steps').innerHTML = '<span class="iv-error-msg">შეავსეთ ყველა ველი</span>';
         }
 
-        // Theme management
-        function toggleTheme() {
-            const body = document.body;
-            const themeText = document.getElementById('theme-text');
-            const currentTheme = body.getAttribute('data-theme');
-            let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            themeText.textContent = newTheme === 'dark' ? 'ღია თემა' : 'მუქი თემა';
-            localStorage.setItem('theme', newTheme);
-        }
-
-        function applyTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            const body = document.body;
-            body.setAttribute('data-theme', savedTheme);
-            const themeText = document.getElementById('theme-text');
-            if (themeText) {
-                themeText.textContent = savedTheme === 'dark' ? 'ღია თემა' : 'მუქი თემა';
-            }
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            applyTheme();
-            updateIvMode();
-            toggleIvDropFactor();
-            const ivDropFactor = document.getElementById('p2_drop_factor');
-            if (ivDropFactor) {
-                ivDropFactor.addEventListener('change', toggleIvDropFactor);
-            }
-        });
-
-        // Core calculator functions
         const fmt = (n) => {
             if (isNaN(n) || !isFinite(n)) return "—";
             const abs = Math.abs(n);
@@ -1246,20 +1711,23 @@
             if (abs >= 100) return n.toLocaleString(undefined, { maximumFractionDigits: 1 });
             return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
         };
-        
-        function setResult(id, value, unitHint = '') {
+
+        function setResult(id, value, unitHint) {
             const el = document.getElementById(id);
-            el.textContent = `შედეგი: ${fmt(value)} ${unitHint}`.trim();
+            el.textContent = `შედეგი: ${fmt(value)} ${unitHint || ''}`.trim();
         }
-        
+
         function requireValidNumber(...vals) {
-            return vals.every(v => typeof v === 'number' && isFinite(v));
+            return vals.every((v) => typeof v === 'number' && isFinite(v));
         }
 
         function calcBicarb() {
             const w = parseFloat(document.getElementById('bicarb-weight').value);
             const be = parseFloat(document.getElementById('bicarb-be').value);
-            if (!requireValidNumber(w, be)) { setResult('bicarb-result', NaN); return; }
+            if (!requireValidNumber(w, be)) {
+                setResult('bicarb-result', NaN);
+                return;
+            }
             const dose = w * Math.abs(be) * 2 * 0.3;
             setResult('bicarb-result', dose, '(ერთ.)');
         }
@@ -1267,7 +1735,10 @@
         function calcPotassium() {
             const w = parseFloat(document.getElementById('k-weight').value);
             const lvl = parseFloat(document.getElementById('k-level').value);
-            if (!requireValidNumber(w, lvl) || lvl <= 0) { setResult('potassium-result', NaN); return; }
+            if (!requireValidNumber(w, lvl) || lvl <= 0) {
+                setResult('potassium-result', NaN);
+                return;
+            }
             const amount = (w * 1.74) / lvl;
             setResult('potassium-result', amount, '(ერთ.)');
         }
@@ -1275,30 +1746,39 @@
         function calcKcoef() {
             const mg = parseFloat(document.getElementById('kcoef-mg').value);
             const vol = parseFloat(document.getElementById('kcoef-vol').value);
-            if (!requireValidNumber(mg, vol) || vol <= 0) { setResult('kcoef-result', NaN); return; }
+            if (!requireValidNumber(mg, vol) || vol <= 0) {
+                setResult('kcoef-result', NaN);
+                return;
+            }
             const k = (mg * 1000) / vol;
             setResult('kcoef-result', k, 'მკგ/მლ');
         }
 
         function calcSolu() {
             const w = parseFloat(document.getElementById('solu-weight').value);
-            if (!requireValidNumber(w)) { setResult('solu-result', NaN); return; }
+            if (!requireValidNumber(w)) {
+                setResult('solu-result', NaN);
+                return;
+            }
             const doseMg = 30 * w;
             setResult('solu-result', doseMg, 'mg');
         }
 
         function resetCard(cardId) {
             const card = document.getElementById(cardId);
-            const inputs = card.querySelectorAll('input');
-            inputs.forEach(i => i.value = '');
+            if (!card) return;
+            card.querySelectorAll('input').forEach((input) => {
+                input.value = '';
+            });
             const res = card.querySelector('.result');
             if (res) res.textContent = 'შედეგი: —';
         }
 
         async function copyResult(resultId) {
-            const text = document.getElementById(resultId).textContent;
+            const el = document.getElementById(resultId);
+            if (!el) return;
             try {
-                await navigator.clipboard.writeText(text);
+                await navigator.clipboard.writeText(el.textContent);
                 toast('შედეგი დაკოპირდა!');
             } catch (err) {
                 toast('კოპირება ვერ მოხერხდა.');
@@ -1309,15 +1789,40 @@
             const t = document.createElement('div');
             t.textContent = msg;
             t.style.cssText = `
-                position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-                padding: 12px 18px; background: var(--surface); border: 1px solid var(--muted);
-                border-radius: 999px; box-shadow: var(--shadow-3); z-index: 1000;
-                color: var(--text); font-size: 0.9rem; transition: opacity .25s ease-in-out;
+                position: fixed;
+                left: 50%;
+                bottom: 24px;
+                transform: translateX(-50%);
+                padding: 14px 18px;
+                border-radius: 999px;
+                border: 1px solid var(--border);
+                background: var(--surface-solid);
+                color: var(--text);
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+                font-size: 0.95rem;
+                opacity: 1;
+                transition: opacity 0.25s ease-in-out;
             `;
             document.body.appendChild(t);
-            setTimeout(() => { t.style.opacity = '0'; }, 2000);
-            setTimeout(() => t.remove(), 2300);
+            setTimeout(() => {
+                t.style.opacity = '0';
+            }, 1800);
+            setTimeout(() => t.remove(), 2200);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
+            updateIvMode();
+            toggleIvDropFactor();
+            setActiveCalculator('panel-bicarb', false);
+            filterCalculators();
+
+            const ivDropFactor = document.getElementById('p2_drop_factor');
+            if (ivDropFactor) {
+                ivDropFactor.addEventListener('change', toggleIvDropFactor);
+            }
+        });
     </script>
 </body>
 </html>
