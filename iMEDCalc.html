@@ -14,6 +14,7 @@
 
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -38,6 +39,7 @@
             min-height: 100vh;
             font-family: 'IBM Plex Sans Georgian', 'Inter', sans-serif;
             color: var(--text);
+            overflow-x: hidden;
             background:
                 radial-gradient(48rem 28rem at 15% 0%, rgba(10, 163, 154, 0.08), transparent 65%),
                 radial-gradient(38rem 22rem at 85% 12%, rgba(84, 107, 255, 0.08), transparent 62%),
@@ -146,6 +148,7 @@
             gap: 18px;
             text-decoration: none;
             color: inherit;
+            min-width: 0;
         }
 
         .brand-mark {
@@ -172,6 +175,7 @@
             font-size: clamp(2rem, 3vw, 3rem);
             line-height: 0.95;
             letter-spacing: -0.04em;
+            word-break: break-word;
         }
 
         .brand-text p {
@@ -274,29 +278,11 @@
 
         .hero {
             text-align: center;
-            padding: clamp(36px, 8vw, 120px) 0 28px;
-        }
-
-        .hero h2 {
-            margin: 0;
-            font-family: 'IBM Plex Sans Georgian', sans-serif;
-            font-size: clamp(2.8rem, 8vw, 6.6rem);
-            line-height: 0.94;
-            letter-spacing: -0.05em;
-            max-width: 1080px;
-            margin-inline: auto;
-        }
-
-        .hero p {
-            max-width: 860px;
-            margin: 28px auto 0;
-            color: var(--muted);
-            font-size: clamp(1.1rem, 2vw, 1.9rem);
-            line-height: 1.5;
+            padding: clamp(12px, 4vw, 40px) 0 28px;
         }
 
         .hero-note {
-            margin-top: 24px;
+            margin-top: 0;
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -307,6 +293,7 @@
             color: var(--muted);
             font-size: 0.98rem;
             box-shadow: var(--shadow-md);
+            line-height: 1.45;
         }
 
         .hero-note svg {
@@ -338,6 +325,7 @@
             font-size: 1.35rem;
             font-weight: 600;
             line-height: 1.15;
+            text-align: left;
             box-shadow: var(--shadow-md);
             transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
         }
@@ -397,6 +385,7 @@
             border-radius: 34px;
             padding: clamp(22px, 3vw, 34px);
             box-shadow: var(--shadow-lg);
+            overflow: hidden;
         }
 
         .card-top {
@@ -449,6 +438,7 @@
             font-size: 0.96rem;
             line-height: 1.5;
             word-break: break-word;
+            max-width: 100%;
         }
 
         .formula::before {
@@ -740,6 +730,10 @@
             white-space: nowrap;
         }
 
+        #p2_drop_custom {
+            max-width: 120px;
+        }
+
         .iv-divider {
             height: 1px;
             margin: 18px 0;
@@ -832,16 +826,22 @@
                 border-radius: 22px;
             }
 
-            .hero p {
-                margin-top: 20px;
-            }
-
             .row {
                 grid-template-columns: 1fr;
             }
 
             .card-top {
                 flex-direction: column;
+            }
+
+            .nav-pill {
+                font-size: 1.1rem;
+                padding: 18px 20px;
+            }
+
+            .calc-card,
+            .iv-suite {
+                border-radius: 28px;
             }
         }
 
@@ -852,15 +852,32 @@
 
             .topbar-inner {
                 min-height: auto;
+                gap: 14px;
+                padding: 14px 0;
             }
 
             .topbar-tools {
                 grid-template-columns: 1fr;
             }
 
+            .brand {
+                gap: 14px;
+            }
+
+            .brand-text h1 {
+                font-size: 1.7rem;
+            }
+
+            .brand-text p {
+                margin-top: 4px;
+                font-size: 0.86rem;
+                letter-spacing: 0.11em;
+            }
+
             .header-actions {
                 width: 100%;
                 justify-content: space-between;
+                gap: 12px;
             }
 
             .header-divider {
@@ -868,6 +885,7 @@
             }
 
             .search-shell {
+                min-height: 56px;
                 padding: 0 18px;
             }
 
@@ -877,14 +895,16 @@
             }
 
             .hero {
-                padding-top: 24px;
+                padding: 8px 0 20px;
             }
 
             .hero-note {
                 width: 100%;
-                justify-content: center;
+                justify-content: flex-start;
+                align-items: flex-start;
                 border-radius: 24px;
                 text-align: left;
+                padding: 14px 16px;
             }
 
             .calc-switcher {
@@ -893,8 +913,10 @@
             }
 
             .nav-pill {
-                font-size: 1.08rem;
-                padding: 18px 18px;
+                min-height: 62px;
+                font-size: 1rem;
+                padding: 16px 18px;
+                border-radius: 24px;
             }
 
             .btns {
@@ -911,6 +933,20 @@
                 grid-template-columns: 1fr;
             }
 
+            .iv-subcard,
+            .calc-card,
+            .iv-suite {
+                padding: 18px;
+                border-radius: 24px;
+            }
+
+            .formula,
+            .result,
+            .iv-result-box,
+            .note {
+                border-radius: 18px;
+            }
+
             .iv-input-row {
                 flex-wrap: wrap;
             }
@@ -919,6 +955,149 @@
             .iv-input-row select {
                 width: 100%;
                 min-height: 54px;
+            }
+
+            #p2_drop_custom {
+                max-width: none;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                width: min(100% - 18px, 1320px);
+            }
+
+            .brand-mark {
+                width: 60px;
+                height: 60px;
+                border-radius: 18px;
+            }
+
+            .brand-mark svg {
+                width: 34px;
+                height: 34px;
+            }
+
+            .brand-text h1 {
+                font-size: 1.45rem;
+            }
+
+            .brand-text p {
+                font-size: 0.72rem;
+                letter-spacing: 0.09em;
+            }
+
+            .icon-btn {
+                min-height: 46px;
+                padding: 0 14px;
+            }
+
+            .icon-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .lang-btn {
+                font-size: 1rem;
+            }
+
+            .theme-toggle {
+                width: 46px;
+            }
+
+            .hero-note {
+                font-size: 0.9rem;
+            }
+
+            .nav-pill {
+                font-size: 0.96rem;
+                gap: 12px;
+            }
+
+            .nav-pill svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .card-label {
+                font-size: 0.72rem;
+                letter-spacing: 0.06em;
+            }
+
+            .calc-card h3,
+            .iv-suite h3 {
+                font-size: 1.3rem;
+            }
+
+            .formula {
+                font-size: 0.86rem;
+                padding: 12px 14px;
+            }
+
+            input,
+            select {
+                padding: 14px 16px;
+                border-radius: 16px;
+            }
+
+            .iv-calc-btn,
+            .btns button {
+                min-height: 50px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .topbar-inner {
+                gap: 12px;
+            }
+
+            .brand {
+                gap: 10px;
+            }
+
+            .brand-text h1 {
+                font-size: 1.28rem;
+            }
+
+            .brand-text p {
+                font-size: 0.66rem;
+            }
+
+            .search-shell {
+                min-height: 52px;
+                padding: 0 14px;
+                gap: 10px;
+            }
+
+            .search-shell svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .nav-pill {
+                padding: 14px 16px;
+                font-size: 0.92rem;
+            }
+
+            .calc-card,
+            .iv-suite,
+            .iv-subcard {
+                padding: 16px;
+            }
+
+            .iv-card-title {
+                font-size: 0.76rem;
+                letter-spacing: 0.09em;
+            }
+
+            .result,
+            .iv-result-box {
+                padding: 16px;
             }
         }
     </style>
@@ -975,8 +1154,6 @@
     <main class="main-content">
         <div class="container">
             <section class="hero">
-                <h2>კლინიკური გადაწყვეტილებების მხარდაჭერა</h2>
-                <p>სწრაფი, ზუსტი და მტკიცებულებებზე დაფუძნებული სამედიცინო კალკულატორები ყოველდღიური კლინიკური პრაქტიკისთვის.</p>
                 <div class="hero-note">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
