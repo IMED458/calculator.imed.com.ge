@@ -141,27 +141,27 @@
         }
 
         .topbar-inner {
-            min-height: 88px;
+            min-height: 74px;
             display: grid;
             grid-template-columns: auto minmax(280px, 1fr) auto;
-            gap: 22px;
+            gap: 16px;
             align-items: center;
         }
 
         .brand {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             text-decoration: none;
             color: inherit;
             min-width: 0;
         }
 
         .brand-mark {
-            width: 68px;
-            height: 68px;
+            width: 56px;
+            height: 56px;
             flex-shrink: 0;
-            border-radius: 22px;
+            border-radius: 18px;
             background: linear-gradient(135deg, #07a79d, #0a8e86);
             color: #ffffff;
             display: grid;
@@ -170,27 +170,27 @@
         }
 
         .brand-mark svg {
-            width: 36px;
-            height: 36px;
+            width: 30px;
+            height: 30px;
         }
 
         .brand-text h1 {
             margin: 0;
             font-family: 'Inter', sans-serif;
             font-weight: 800;
-            font-size: clamp(1.45rem, 2.3vw, 2.45rem);
+            font-size: clamp(1.3rem, 2vw, 2.1rem);
             line-height: 0.98;
             letter-spacing: -0.04em;
             word-break: break-word;
         }
 
         .brand-text p {
-            margin: 4px 0 0;
+            margin: 2px 0 0;
             color: var(--accent);
             font-family: 'Inter', sans-serif;
-            font-size: clamp(0.78rem, 1vw, 1rem);
+            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
             font-weight: 700;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.11em;
             text-transform: uppercase;
         }
 
@@ -200,13 +200,13 @@
 
         .search-shell {
             justify-self: center;
-            width: min(100%, 500px);
+            width: min(100%, 430px);
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             border: 1px solid transparent;
             border-radius: 999px;
-            padding: 0 20px;
+            padding: 0 16px;
             background: var(--surface-soft);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
         }
@@ -218,30 +218,30 @@
         }
 
         .search-shell svg {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             color: #8fa1bf;
             flex-shrink: 0;
         }
 
         .search-shell input {
             border: none;
-            padding: 14px 0;
+            padding: 11px 0;
             background: transparent;
             box-shadow: none;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             justify-self: end;
         }
 
         .header-divider {
             width: 1px;
-            height: 40px;
+            height: 32px;
             background: var(--border);
         }
 
@@ -250,8 +250,8 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            min-height: 44px;
-            padding: 0 14px;
+            min-height: 40px;
+            padding: 0 12px;
             border-radius: 999px;
             color: color-mix(in srgb, var(--text) 82%, var(--muted));
             transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
@@ -263,28 +263,28 @@
         }
 
         .icon-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
         }
 
         .lang-btn {
             font-family: 'Inter', sans-serif;
-            font-size: 1.05rem;
+            font-size: 0.98rem;
             font-weight: 600;
         }
 
         .theme-toggle {
-            width: 44px;
+            width: 40px;
             padding: 0;
         }
 
         .main-content {
-            padding: 38px 0 64px;
+            padding: 26px 0 56px;
         }
 
         .hero {
             text-align: center;
-            padding: clamp(12px, 4vw, 40px) 0 28px;
+            padding: clamp(8px, 3vw, 24px) 0 22px;
         }
 
         .hero-note {
@@ -292,12 +292,12 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 14px 20px;
+            padding: 12px 16px;
             border-radius: 999px;
             border: 1px solid var(--border);
             background: color-mix(in srgb, var(--surface-solid) 92%, transparent);
             color: var(--muted);
-            font-size: 0.98rem;
+            font-size: 0.92rem;
             box-shadow: var(--shadow-md);
             line-height: 1.45;
         }
@@ -311,26 +311,26 @@
 
         .calc-switcher {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-top: 38px;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
         }
 
         .nav-pill {
             display: inline-flex;
             align-items: center;
             justify-content: flex-start;
-            gap: 14px;
+            gap: 10px;
             width: 100%;
-            padding: 22px 24px;
+            padding: 16px 18px;
             border: 1px solid var(--border);
             border-radius: 999px;
             background: color-mix(in srgb, var(--surface-solid) 95%, transparent);
             color: #4b5d7b;
             font-family: 'IBM Plex Sans Georgian', sans-serif;
-            font-size: 1.35rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            line-height: 1.15;
+            line-height: 1.1;
             text-align: left;
             box-shadow: var(--shadow-md);
             transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
@@ -349,8 +349,8 @@
         }
 
         .nav-pill svg {
-            width: 26px;
-            height: 26px;
+            width: 22px;
+            height: 22px;
             flex-shrink: 0;
         }
 
@@ -1081,9 +1081,9 @@
             }
 
             .brand-mark {
-                width: 72px;
-                height: 72px;
-                border-radius: 22px;
+                width: 54px;
+                height: 54px;
+                border-radius: 18px;
             }
 
             .row {
@@ -1095,8 +1095,8 @@
             }
 
             .nav-pill {
-                font-size: 1.1rem;
-                padding: 18px 20px;
+                font-size: 0.98rem;
+                padding: 15px 17px;
             }
 
             .calc-card,
@@ -1113,8 +1113,8 @@
 
             .topbar-inner {
                 min-height: auto;
-                gap: 14px;
-                padding: 14px 0;
+                gap: 12px;
+                padding: 12px 0;
             }
 
             .topbar-tools {
@@ -1122,23 +1122,23 @@
             }
 
             .brand {
-                gap: 14px;
+                gap: 12px;
             }
 
             .brand-text h1 {
-                font-size: 1.7rem;
+                font-size: 1.48rem;
             }
 
             .brand-text p {
-                margin-top: 4px;
-                font-size: 0.86rem;
-                letter-spacing: 0.11em;
+                margin-top: 2px;
+                font-size: 0.78rem;
+                letter-spacing: 0.1em;
             }
 
             .header-actions {
                 width: 100%;
                 justify-content: space-between;
-                gap: 12px;
+                gap: 10px;
             }
 
             .header-divider {
@@ -1146,17 +1146,17 @@
             }
 
             .search-shell {
-                min-height: 56px;
-                padding: 0 18px;
+                min-height: 50px;
+                padding: 0 16px;
             }
 
             .search-shell input {
-                padding: 16px 0;
-                font-size: 16px;
+                padding: 14px 0;
+                font-size: 15px;
             }
 
             .hero {
-                padding: 8px 0 20px;
+                padding: 6px 0 16px;
             }
 
             .hero-note {
@@ -1170,14 +1170,14 @@
 
             .calc-switcher {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 10px;
             }
 
             .nav-pill {
-                min-height: 62px;
-                font-size: 1rem;
-                padding: 16px 18px;
-                border-radius: 24px;
+                min-height: 54px;
+                font-size: 0.94rem;
+                padding: 14px 16px;
+                border-radius: 20px;
             }
 
             .btns {
@@ -1241,33 +1241,33 @@
             }
 
             .brand-mark {
-                width: 60px;
-                height: 60px;
-                border-radius: 18px;
+                width: 50px;
+                height: 50px;
+                border-radius: 16px;
             }
 
             .brand-mark svg {
-                width: 34px;
-                height: 34px;
+                width: 28px;
+                height: 28px;
             }
 
             .brand-text h1 {
-                font-size: 1.45rem;
+                font-size: 1.3rem;
             }
 
             .brand-text p {
-                font-size: 0.72rem;
-                letter-spacing: 0.09em;
+                font-size: 0.66rem;
+                letter-spacing: 0.08em;
             }
 
             .icon-btn {
-                min-height: 46px;
-                padding: 0 14px;
+                min-height: 42px;
+                padding: 0 12px;
             }
 
             .icon-btn svg {
-                width: 24px;
-                height: 24px;
+                width: 22px;
+                height: 22px;
             }
 
             .lang-btn {
@@ -1275,7 +1275,7 @@
             }
 
             .theme-toggle {
-                width: 46px;
+                width: 42px;
             }
 
             .hero-note {
@@ -1283,13 +1283,13 @@
             }
 
             .nav-pill {
-                font-size: 0.96rem;
-                gap: 12px;
+                font-size: 0.9rem;
+                gap: 10px;
             }
 
             .nav-pill svg {
-                width: 22px;
-                height: 22px;
+                width: 20px;
+                height: 20px;
             }
 
             .card-label {
@@ -1331,16 +1331,16 @@
             }
 
             .brand-text h1 {
-                font-size: 1.28rem;
+                font-size: 1.16rem;
             }
 
             .brand-text p {
-                font-size: 0.66rem;
+                font-size: 0.6rem;
             }
 
             .search-shell {
-                min-height: 52px;
-                padding: 0 14px;
+                min-height: 46px;
+                padding: 0 12px;
                 gap: 10px;
             }
 
@@ -1354,8 +1354,8 @@
             }
 
             .nav-pill {
-                padding: 14px 16px;
-                font-size: 0.92rem;
+                padding: 12px 14px;
+                font-size: 0.84rem;
             }
 
             .calc-card,
