@@ -385,7 +385,8 @@
         }
 
         .calc-card,
-        .iv-suite {
+        .iv-suite,
+        .dilution-suite {
             background: color-mix(in srgb, var(--surface-solid) 96%, transparent);
             border: 1px solid var(--border);
             border-radius: 34px;
@@ -418,7 +419,8 @@
         }
 
         .calc-card h3,
-        .iv-suite h3 {
+        .iv-suite h3,
+        .dilution-suite h3 {
             margin: 12px 0 0;
             font-size: clamp(1.5rem, 2vw, 2rem);
             line-height: 1.1;
@@ -482,7 +484,8 @@
         }
 
         .btns button,
-        .iv-calc-btn {
+        .iv-calc-btn,
+        .dil-calc-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -495,14 +498,16 @@
         }
 
         .btns button:first-child,
-        .iv-calc-btn {
+        .iv-calc-btn,
+        .dil-calc-btn {
             background: linear-gradient(135deg, var(--accent), #0eb7ae);
             color: #ffffff;
             box-shadow: var(--shadow-pill);
         }
 
         .btns button:first-child:hover,
-        .iv-calc-btn:hover {
+        .iv-calc-btn:hover,
+        .dil-calc-btn:hover {
             transform: translateY(-1px);
         }
 
@@ -519,7 +524,8 @@
         }
 
         .result,
-        .iv-result-box {
+        .iv-result-box,
+        .dil-result-box {
             margin-top: 20px;
             padding: 20px 22px;
             border-radius: 24px;
@@ -530,15 +536,18 @@
             font-weight: 700;
         }
 
-        .iv-result-box {
+        .iv-result-box,
+        .dil-result-box {
             display: none;
         }
 
-        .iv-result-box.show {
+        .iv-result-box.show,
+        .dil-result-box.show {
             display: block;
         }
 
-        .iv-result-box.error-box {
+        .iv-result-box.error-box,
+        .dil-result-box.error-box {
             background: color-mix(in srgb, var(--err) 7%, var(--surface-solid));
             border-color: color-mix(in srgb, var(--err) 25%, var(--border));
         }
@@ -778,6 +787,263 @@
             font-size: 0.9rem;
         }
 
+        .dilution-suite .card-top {
+            margin-bottom: 26px;
+        }
+
+        .dil-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .dil-tab {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0 18px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--surface-soft);
+            color: #4d607e;
+            font-size: 0.96rem;
+            font-weight: 700;
+            box-shadow: none;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dil-tab.active {
+            background: var(--accent-soft);
+            border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+            color: var(--accent-strong);
+        }
+
+        .dil-panel {
+            display: none;
+        }
+
+        .dil-panel.active {
+            display: block;
+        }
+
+        .dil-subcard {
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: var(--surface-soft-2);
+            padding: clamp(18px, 2vw, 28px);
+        }
+
+        .dil-card-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: var(--accent-strong);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .dil-card-title::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .dil-formula-box {
+            margin-bottom: 18px;
+            padding: 15px 18px;
+            border-radius: 20px;
+            background: color-mix(in srgb, var(--accent-soft) 45%, var(--surface-solid));
+            border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+            color: var(--accent-strong);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.94rem;
+            line-height: 1.6;
+        }
+
+        .dil-field {
+            margin-bottom: 16px;
+        }
+
+        .dil-input-row {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .dil-input-row > * {
+            min-width: 0;
+        }
+
+        .dilution-suite input[type="number"] {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+        }
+
+        .dil-unit-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 88px;
+            padding: 0 16px;
+            border-radius: 18px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .dil-result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .dil-result-item {
+            padding: 16px 18px;
+            border-radius: 22px;
+            border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+            background: color-mix(in srgb, var(--surface-soft) 82%, var(--surface-solid));
+        }
+
+        .dil-rlabel {
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 8px;
+        }
+
+        .dil-rval {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            line-height: 1;
+            color: var(--accent-strong);
+        }
+
+        .dil-runit {
+            margin-top: 6px;
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.94rem;
+        }
+
+        .dil-steps-title,
+        .dil-syringe-label {
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 10px;
+        }
+
+        .dil-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .dil-step-num {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--accent-soft);
+            color: var(--accent-strong);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .dil-step-text {
+            color: var(--text);
+        }
+
+        .dil-step-text span {
+            color: var(--accent-strong);
+        }
+
+        .dil-error-msg {
+            color: var(--err);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .dil-warn-msg {
+            margin-top: 12px;
+            color: color-mix(in srgb, var(--warn) 82%, var(--text));
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.84rem;
+            line-height: 1.55;
+        }
+
+        .dil-syringe-wrap {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .dil-syringe-bar {
+            display: flex;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: var(--surface-soft);
+        }
+
+        .dil-seg-drug,
+        .dil-seg-water,
+        .dil-seg-b {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+            padding: 0 8px;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            transition: width 0.35s ease;
+        }
+
+        .dil-seg-drug {
+            background: linear-gradient(135deg, var(--accent), #3e8df0);
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .dil-seg-water {
+            background: color-mix(in srgb, var(--surface-soft) 90%, var(--surface-solid));
+            color: var(--muted);
+        }
+
+        .dil-seg-b {
+            background: linear-gradient(135deg, #7b7cf5, #5a57d8);
+            color: #ffffff;
+            font-weight: 700;
+        }
+
         .foot {
             padding: 10px 0 20px;
             text-align: center;
@@ -834,7 +1100,8 @@
             }
 
             .calc-card,
-            .iv-suite {
+            .iv-suite,
+            .dilution-suite {
                 border-radius: 28px;
             }
         }
@@ -918,18 +1185,22 @@
             }
 
             .btns button,
-            .iv-calc-btn {
+            .iv-calc-btn,
+            .dil-calc-btn {
                 width: 100%;
             }
 
-            .iv-tabs {
+            .iv-tabs,
+            .dil-tabs {
                 display: grid;
                 grid-template-columns: 1fr;
             }
 
             .iv-subcard,
             .calc-card,
-            .iv-suite {
+            .iv-suite,
+            .dilution-suite,
+            .dil-subcard {
                 padding: 18px;
                 border-radius: 24px;
             }
@@ -937,16 +1208,19 @@
             .formula,
             .result,
             .iv-result-box,
+            .dil-result-box,
             .note {
                 border-radius: 18px;
             }
 
-            .iv-input-row {
+            .iv-input-row,
+            .dil-input-row {
                 flex-wrap: wrap;
             }
 
             .iv-unit-tag,
-            .iv-input-row select {
+            .iv-input-row select,
+            .dil-unit-tag {
                 width: 100%;
                 min-height: 54px;
             }
@@ -954,6 +1228,10 @@
             #p2_drop_custom {
                 max-width: none;
                 width: 100%;
+            }
+
+            .dil-result-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1020,7 +1298,8 @@
             }
 
             .calc-card h3,
-            .iv-suite h3 {
+            .iv-suite h3,
+            .dilution-suite h3 {
                 font-size: 1.3rem;
             }
 
@@ -1036,6 +1315,7 @@
             }
 
             .iv-calc-btn,
+            .dil-calc-btn,
             .btns button {
                 min-height: 50px;
             }
@@ -1080,17 +1360,21 @@
 
             .calc-card,
             .iv-suite,
-            .iv-subcard {
+            .iv-subcard,
+            .dilution-suite,
+            .dil-subcard {
                 padding: 16px;
             }
 
-            .iv-card-title {
+            .iv-card-title,
+            .dil-card-title {
                 font-size: 0.76rem;
                 letter-spacing: 0.09em;
             }
 
             .result,
-            .iv-result-box {
+            .iv-result-box,
+            .dil-result-box {
                 padding: 16px;
             }
         }
@@ -1207,6 +1491,15 @@
                             <path d="M14 10V15C14 17.21 15.79 19 18 19C18.55 19 19 18.55 19 18V16C19 15.45 18.55 15 18 15C16.9 15 16 14.1 16 13V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <span>ინტრავენური გადასხმა</span>
+                    </button>
+
+                    <button class="nav-pill" type="button" data-target="panel-dilution" data-search="მედიკამენტის პროცენტის შემცირება პროცენტობის შემცირება განზავება dilution ორი ხსნარი საინექციო წყალი" onclick="toggleCalculator('panel-dilution')">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="2" />
+                            <circle cx="16" cy="16" r="2.5" stroke="currentColor" stroke-width="2" />
+                            <path d="M18.5 5.5L5.5 18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <span>მედიკამენტის %-ის შემცირება</span>
                     </button>
                 </div>
 
@@ -1515,6 +1808,160 @@
                         </section>
                     </div>
                 </div>
+
+                <div class="calc-panel" id="panel-dilution">
+                    <div class="calc-panel-inner">
+                        <section class="dilution-suite">
+                            <div class="card-top">
+                                <div>
+                                    <span class="card-label">Dilution Tool</span>
+                                    <h3>მედიკამენტის %-ის შემცირება</h3>
+                                </div>
+                                <p class="muted">განზავება საინექციო წყლით და ორი ხსნარის შერევა ერთ სივრცეში, თქვენი ფორმულების უცვლელად.</p>
+                            </div>
+
+                            <div class="dil-tabs" role="tablist" aria-label="პროცენტული განზავების კატეგორიები">
+                                <button class="dil-tab active" type="button" onclick="switchDilutionTab(0)" aria-selected="true">განზავება საინექციო წყლით</button>
+                                <button class="dil-tab" type="button" onclick="switchDilutionTab(1)" aria-selected="false">ორი ხსნარის შერევა</button>
+                            </div>
+
+                            <div class="dil-panel active" id="dil-panel-0">
+                                <div class="dil-subcard">
+                                    <div class="dil-card-title">პროცენტობის შემცირება — საინექციო წყლით</div>
+                                    <div class="dil-formula-box">
+                                        წამლის მლ = (სასურველი % × სასურველი მოცულობა) ÷ საწყისი %<br>
+                                        წყლის მლ = სასურველი მოცულობა − წამლის მლ
+                                    </div>
+
+                                    <div class="dil-field">
+                                        <label><strong>საწყისი კონცენტრაცია</strong> — ეტიკეტზე</label>
+                                        <div class="dil-input-row">
+                                            <input type="number" id="dw_start" placeholder="80" step="0.1" min="0" max="100">
+                                            <div class="dil-unit-tag">%</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dil-field">
+                                        <label><strong>სასურველი კონცენტრაცია</strong> — ექიმის დანიშნულება</label>
+                                        <div class="dil-input-row">
+                                            <input type="number" id="dw_target" placeholder="60" step="0.1" min="0" max="100">
+                                            <div class="dil-unit-tag">%</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dil-field">
+                                        <label><strong>სასურველი საბოლოო მოცულობა</strong></label>
+                                        <div class="dil-input-row">
+                                            <input type="number" id="dw_vol" placeholder="2" step="0.1" min="0">
+                                            <div class="dil-unit-tag">მლ</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="dil-calc-btn" type="button" onclick="calcDilutionWater()">გამოთვლა</button>
+
+                                    <div class="dil-result-box" id="dw_result" aria-live="polite">
+                                        <div class="dil-result-grid">
+                                            <div class="dil-result-item">
+                                                <div class="dil-rlabel">წამალი (X%)</div>
+                                                <div class="dil-rval" id="dw_drug_val">—</div>
+                                                <div class="dil-runit">მლ</div>
+                                            </div>
+                                            <div class="dil-result-item">
+                                                <div class="dil-rlabel">საინექციო წყალი</div>
+                                                <div class="dil-rval" id="dw_water_val">—</div>
+                                                <div class="dil-runit">მლ</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dil-steps-title">გამოთვლის ნაბიჯები</div>
+                                        <div id="dw_steps"></div>
+
+                                        <div class="dil-syringe-wrap">
+                                            <div class="dil-syringe-label">შპრიცის სქემა</div>
+                                            <div class="dil-syringe-bar">
+                                                <div class="dil-seg-drug" id="dw_seg_drug" style="width:60%">წამალი</div>
+                                                <div class="dil-seg-water" id="dw_seg_water" style="width:40%">წყალი</div>
+                                            </div>
+                                        </div>
+                                        <div class="dil-warn-msg" id="dw_warn"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dil-panel" id="dil-panel-1">
+                                <div class="dil-subcard">
+                                    <div class="dil-card-title">ორი ხსნარის შერევა — ფორმულა</div>
+                                    <div class="dil-formula-box">
+                                        დიდი% მლ = (სასურველი% − პატარა%) ÷ (დიდი% − პატარა%) × მოცულობა<br>
+                                        პატარა% მლ = მოცულობა − დიდი% მლ<br>
+                                        <span style="font-size:0.82rem;color:var(--muted);">თანმიმდევრობა არ აქვს მნიშვნელობა — კალკულატორი თვითონ დაალაგებს</span>
+                                    </div>
+
+                                    <div class="dil-field">
+                                        <label><strong>პირველი ხსნარის კონცენტრაცია</strong></label>
+                                        <div class="dil-input-row">
+                                            <input type="number" id="dm_first" placeholder="40" step="0.1" min="0" max="100">
+                                            <div class="dil-unit-tag">%</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dil-field">
+                                        <label><strong>მეორე ხსნარის კონცენტრაცია</strong></label>
+                                        <div class="dil-input-row">
+                                            <input type="number" id="dm_second" placeholder="10" step="0.1" min="0" max="100">
+                                            <div class="dil-unit-tag">%</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dil-field">
+                                        <label><strong>C — სასურველი კონცენტრაცია</strong></label>
+                                        <div class="dil-input-row">
+                                            <input type="number" id="dm_target" placeholder="20" step="0.1" min="0" max="100">
+                                            <div class="dil-unit-tag">%</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dil-field">
+                                        <label><strong>საბოლოო მოცულობა</strong> — შპრიცის ზომა</label>
+                                        <div class="dil-input-row">
+                                            <input type="number" id="dm_vol" placeholder="5" step="0.1" min="0">
+                                            <div class="dil-unit-tag">მლ</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="dil-calc-btn" type="button" onclick="calcDilutionMix()">გამოთვლა</button>
+
+                                    <div class="dil-result-box" id="dm_result" aria-live="polite">
+                                        <div class="dil-result-grid">
+                                            <div class="dil-result-item">
+                                                <div class="dil-rlabel" id="dm_big_label">A% ხსნარი</div>
+                                                <div class="dil-rval" id="dm_big_val">—</div>
+                                                <div class="dil-runit">მლ</div>
+                                            </div>
+                                            <div class="dil-result-item">
+                                                <div class="dil-rlabel" id="dm_small_label">B% ხსნარი</div>
+                                                <div class="dil-rval" id="dm_small_val">—</div>
+                                                <div class="dil-runit">მლ</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dil-steps-title">გამოთვლის ნაბიჯები</div>
+                                        <div id="dm_steps"></div>
+
+                                        <div class="dil-syringe-wrap">
+                                            <div class="dil-syringe-label">შპრიცის სქემა</div>
+                                            <div class="dil-syringe-bar">
+                                                <div class="dil-seg-drug" id="dm_seg_big" style="width:60%">A%</div>
+                                                <div class="dil-seg-b" id="dm_seg_small" style="width:40%">B%</div>
+                                            </div>
+                                        </div>
+                                        <div class="dil-warn-msg" id="dm_warn"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
             </section>
 
             <p class="foot">© 2025 iMed Calc • შექმნილია სამედიცინო პერსონალის ყოველდღიური მუშაობის გასამარტივებლად</p>
@@ -1608,6 +2055,54 @@
             document.querySelectorAll('.iv-panel').forEach((panel, index) => {
                 panel.classList.toggle('active', index === i);
             });
+        }
+
+        function switchDilutionTab(i) {
+            document.querySelectorAll('.dil-tab').forEach((tab, index) => {
+                const isActive = index === i;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            document.querySelectorAll('.dil-panel').forEach((panel, index) => {
+                panel.classList.toggle('active', index === i);
+            });
+        }
+
+        function resetDilutionWaterVisual() {
+            const drugSeg = document.getElementById('dw_seg_drug');
+            const waterSeg = document.getElementById('dw_seg_water');
+            if (!drugSeg || !waterSeg) return;
+            drugSeg.style.width = '60%';
+            waterSeg.style.width = '40%';
+            drugSeg.textContent = 'წამალი';
+            waterSeg.textContent = 'წყალი';
+        }
+
+        function resetDilutionMixVisual() {
+            const bigSeg = document.getElementById('dm_seg_big');
+            const smallSeg = document.getElementById('dm_seg_small');
+            const bigLabel = document.getElementById('dm_big_label');
+            const smallLabel = document.getElementById('dm_small_label');
+            if (bigSeg) {
+                bigSeg.style.width = '60%';
+                bigSeg.textContent = 'A%';
+            }
+            if (smallSeg) {
+                smallSeg.style.width = '40%';
+                smallSeg.textContent = 'B%';
+            }
+            if (bigLabel) bigLabel.textContent = 'A% ხსნარი';
+            if (smallLabel) smallLabel.textContent = 'B% ხსნარი';
+        }
+
+        function showDilutionError(boxId, firstValueId, secondValueId, stepsId, message) {
+            const box = document.getElementById(boxId);
+            if (!box) return;
+            box.className = 'dil-result-box show error-box';
+            document.getElementById(firstValueId).textContent = '!';
+            document.getElementById(secondValueId).textContent = '!';
+            document.getElementById(stepsId).innerHTML = `<span class="dil-error-msg">${message}</span>`;
         }
 
         function toggleIvDropFactor() {
@@ -1867,6 +2362,101 @@
             document.getElementById('p3_steps').innerHTML = '<span class="iv-error-msg">შეავსეთ ყველა ველი</span>';
         }
 
+        function calcDilutionWater() {
+            const startPct = parseFloat(document.getElementById('dw_start').value);
+            const targetPct = parseFloat(document.getElementById('dw_target').value);
+            const vol = parseFloat(document.getElementById('dw_vol').value);
+            const box = document.getElementById('dw_result');
+
+            box.className = 'dil-result-box show';
+            document.getElementById('dw_warn').textContent = '';
+
+            if ([startPct, targetPct, vol].some(isNaN) || startPct <= 0 || vol <= 0) {
+                resetDilutionWaterVisual();
+                return showDilutionError('dw_result', 'dw_drug_val', 'dw_water_val', 'dw_steps', 'შეავსეთ ყველა ველი');
+            }
+
+            if (targetPct >= startPct) {
+                resetDilutionWaterVisual();
+                return showDilutionError('dw_result', 'dw_drug_val', 'dw_water_val', 'dw_steps', 'სასურველი % უნდა იყოს საწყისზე ნაკლები!');
+            }
+
+            if (targetPct <= 0) {
+                resetDilutionWaterVisual();
+                return showDilutionError('dw_result', 'dw_drug_val', 'dw_water_val', 'dw_steps', 'სასურველი % უნდა იყოს 0-ზე მეტი');
+            }
+
+            const drugMl = (targetPct * vol) / startPct;
+            const waterMl = vol - drugMl;
+            const drugPct = Math.max(0, Math.min(100, (drugMl / vol) * 100));
+
+            document.getElementById('dw_drug_val').textContent = drugMl.toFixed(2);
+            document.getElementById('dw_water_val').textContent = waterMl.toFixed(2);
+            document.getElementById('dw_steps').innerHTML = `
+                <div class="dil-step"><div class="dil-step-num">1</div><div class="dil-step-text">წამლის მლ = (${targetPct}% × ${vol}მლ) ÷ ${startPct}% = <span>${drugMl.toFixed(2)} მლ</span></div></div>
+                <div class="dil-step"><div class="dil-step-num">2</div><div class="dil-step-text">წყლის მლ = ${vol}მლ − ${drugMl.toFixed(2)}მლ = <span>${waterMl.toFixed(2)} მლ</span></div></div>
+                <div class="dil-step"><div class="dil-step-num">3</div><div class="dil-step-text">გადამოწმება: (${drugMl.toFixed(2)} × ${startPct}) ÷ ${vol} = <span>${((drugMl * startPct) / vol).toFixed(1)}% ✓</span></div></div>
+            `;
+
+            document.getElementById('dw_seg_drug').style.width = `${drugPct}%`;
+            document.getElementById('dw_seg_water').style.width = `${100 - drugPct}%`;
+            document.getElementById('dw_seg_drug').textContent = `${startPct}% — ${drugMl.toFixed(2)}მლ`;
+            document.getElementById('dw_seg_water').textContent = `წყალი — ${waterMl.toFixed(2)}მლ`;
+
+            if (waterMl < 0.05) {
+                document.getElementById('dw_warn').textContent = 'წყლის მოცულობა ძალიან მცირეა. გადაამოწმეთ შეყვანილი მნიშვნელობები.';
+            }
+        }
+
+        function calcDilutionMix() {
+            const p1 = parseFloat(document.getElementById('dm_first').value);
+            const p2 = parseFloat(document.getElementById('dm_second').value);
+            const target = parseFloat(document.getElementById('dm_target').value);
+            const vol = parseFloat(document.getElementById('dm_vol').value);
+            const box = document.getElementById('dm_result');
+
+            box.className = 'dil-result-box show';
+            document.getElementById('dm_warn').textContent = '';
+
+            if ([p1, p2, target, vol].some(isNaN) || vol <= 0) {
+                resetDilutionMixVisual();
+                return showDilutionError('dm_result', 'dm_big_val', 'dm_small_val', 'dm_steps', 'შეავსეთ ყველა ველი');
+            }
+
+            if (p1 === p2) {
+                resetDilutionMixVisual();
+                return showDilutionError('dm_result', 'dm_big_val', 'dm_small_val', 'dm_steps', 'ორი ხსნარის პროცენტი ერთმანეთის ტოლი ვერ იქნება!');
+            }
+
+            const A = Math.max(p1, p2);
+            const B = Math.min(p1, p2);
+
+            if (target >= A || target <= B) {
+                resetDilutionMixVisual();
+                return showDilutionError('dm_result', 'dm_big_val', 'dm_small_val', 'dm_steps', `სასურველი ${target}% უნდა იყოს ${B}%-სა და ${A}%-ს შორის!`);
+            }
+
+            const Aml = ((target - B) / (A - B)) * vol;
+            const Bml = vol - Aml;
+            const check = ((Aml * A) + (Bml * B)) / vol;
+            const bigPct = Math.max(0, Math.min(100, (Aml / vol) * 100));
+
+            document.getElementById('dm_big_label').textContent = `${A}% ხსნარი (დიდი)`;
+            document.getElementById('dm_small_label').textContent = `${B}% ხსნარი (პატარა)`;
+            document.getElementById('dm_big_val').textContent = Aml.toFixed(2);
+            document.getElementById('dm_small_val').textContent = Bml.toFixed(2);
+            document.getElementById('dm_steps').innerHTML = `
+                <div class="dil-step"><div class="dil-step-num">1</div><div class="dil-step-text">დიდი%(${A}) მლ = (სასურველი − პატარა%) ÷ (დიდი% − პატარა%) × მოცულობა<br>= (${target} − ${B}) ÷ (${A} − ${B}) × ${vol}<br>= ${target - B} ÷ ${A - B} × ${vol} = <span>${Aml.toFixed(2)} მლ</span></div></div>
+                <div class="dil-step"><div class="dil-step-num">2</div><div class="dil-step-text">პატარა%(${B}) მლ = ${vol} − ${Aml.toFixed(2)} = <span>${Bml.toFixed(2)} მლ</span></div></div>
+                <div class="dil-step"><div class="dil-step-num">3</div><div class="dil-step-text">გადამოწმება: (${Aml.toFixed(2)}×${A} + ${Bml.toFixed(2)}×${B}) ÷ ${vol} = <span>${check.toFixed(2)}% ✓</span></div></div>
+            `;
+
+            document.getElementById('dm_seg_big').style.width = `${bigPct}%`;
+            document.getElementById('dm_seg_small').style.width = `${100 - bigPct}%`;
+            document.getElementById('dm_seg_big').textContent = `${A}% — ${Aml.toFixed(2)}მლ`;
+            document.getElementById('dm_seg_small').textContent = `${B}% — ${Bml.toFixed(2)}მლ`;
+        }
+
         const fmt = (n) => {
             if (isNaN(n) || !isFinite(n)) return "—";
             const abs = Math.abs(n);
@@ -1977,7 +2567,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             applyTheme();
             updateIvMode();
+            switchDilutionTab(0);
             toggleIvDropFactor();
+            resetDilutionWaterVisual();
+            resetDilutionMixVisual();
             setActiveCalculator('panel-bicarb', false);
             filterCalculators();
 
